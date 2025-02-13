@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivero - Ejemplares Por Planta</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/verejemplaresplanta.css">
+<style>
+#searchInput:focus {
+	border-color: brown;
+	box-shadow: 0 0 5px rgba(165, 42, 42, 0.5);
+	outline: none;
+}
+</style>
+
+</head>
+<body>
+	<header class="header">
+		<div class="logo-section">
+			<div class="logo-placeholder">
+				<a th:href="@{/menuadmin}"> <img src="/imagenes/Logo.jpg"
+					alt="Logo ViverApp" width="110px" height="110px">
+				</a>
+			</div>
+			<h1 class="h1 mb-0">ViverApp Gestión</h1>
+		</div>
+		<p class="welcome-message">
+			<i class="fa fa-user" aria-hidden="true"></i> <span
+				th:text="${session.usuario}">Usuario</span>
+		</p>
+	</header>
+
+	<nav class="sidebar">
+		<a th:if="${session.perfil.toString() == 'ADMIN'}"
+			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
+			Usuario </a> <a th:if="${session.perfil.toString() == 'ADMIN'}"
+			class="sidebar-button" th:href="@{/menuplantas}"> Menú Plantas </a> <a
+			class="seleccionado" th:href="@{/menuejemplares}"> Menú
+			Ejemplares </a> <a class="sidebar-button" th:href="@{/menumensajes}">
+			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
+			Cerrar Sesión </a>
+	</nav>
+
+	<main class="main-content">
+		<h3 class="text-center titulo">Selecciona una o varias plantas
+			para ver sus ejemplares</h3>
+
+
+		<div class="mb-3">
+			<input type="text" id="searchInput" class="form-control"
+				placeholder="Buscar por nombre común...">
+		</div>
+
+		<form action="/ejemplaresplanta" method="POST">
+			<table class="table table-striped table-hover" id="plantasTable">
+				<thead>
+					<tr>
+						<th>Código</th>
+						<th>Nombre Común</th>
+						<th>Nombre Científico</th>
+						<th>Seleccionar</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="planta : ${plantas}">
+						<td th:text="${planta.codigo}"></td>
+						<td class="nombre-comun" th:text="${planta.nombrecomun}"></td>
+						<td th:text="${planta.nombrecientifico}"></td>
+						<td><input type="checkbox" class="form-check-input"
+							name="plantasSeleccionadas" th:value="${planta.id}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<button id="verEjemplaresBtn" type="submit" class="btn-selec">VER
+				EJEMPLARES</button>
+		</form>
+
+		<hr>
+
+
+<!-- Iterstat es una variable de estado que permite acceder a información adicional sobre la iteración, 
+como el índice de la iteración, si es la primera o última iteración, etc. 
+No se usa explícitamente en este caso, pero se podría usar si se necesita. -->
+		<div th:each="planta, iterStat : ${ejemplaresPorPlanta}"
+			id="ejemplares">
+			<h4 th:text="'Ejemplares de ' + ${planta.key.nombrecomun}"
+				class="titulo"></h4>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="ejemplar : ${planta.value}">
+						<td th:text="${ejemplar.nombre}"></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+	</main>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+		
+	</script>
+
+	<script src="/js/verejemplaresplanta.js"></script>
+
+</body>
+</html>

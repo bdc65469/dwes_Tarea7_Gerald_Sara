@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivero - Editar Planta</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/modificarplanta.css">
+
+</head>
+<body>
+	<header class="header">
+		<div class="logo-section">
+			<div class="logo-placeholder">
+				<a th:href="@{/menuadmin}"> <img src="/imagenes/Logo.jpg"
+					alt="Logo ViverApp" width="110px" height="110px">
+				</a>
+			</div>
+			<h1 class="h1 mb-0">ViverApp Gestión</h1>
+		</div>
+		<p class="welcome-message">
+			<i class="fa fa-user" aria-hidden="true"></i> <span
+				th:text="${session.usuario}">Usuario</span>
+		</p>
+	</header>
+
+	<nav class="sidebar">
+		<a class="sidebar-button" th:href="@{/registrarusuario}">
+			Registrar Usuario </a> <a class="seleccionado" th:href="@{/menuplantas}">
+			Menú Plantas </a> <a class="sidebar-button" th:href="@{/menuejemplares}">
+			Menú Ejemplares </a> <a class="sidebar-button" th:href="@{/menumensajes}">
+			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
+			Cerrar Sesión </a>
+	</nav>
+
+	<main class="main-content">
+		<div class="dropdown-container">
+			<p class="dropdown-message">Selecciona la planta que deseas
+				modificar:</p>
+			<button class="dropdown-toggle" type="button" id="dropdownMenuButton"
+				data-bs-toggle="dropdown" aria-expanded="false">Selecciona
+				una planta</button>
+			<ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+				<li th:each="planta : ${plantas}"><a class="dropdown-item"
+					href="#" th:text="${planta.nombrecomun}"
+					th:data-codigo="${planta.codigo}"
+					th:data-nombrecientifico="${planta.nombrecientifico}"
+					onclick="setSelectedOption(this)"> </a></li>
+			</ul>
+
+			<button id="modificar" class="btn-modify">Modificar</button>
+		</div>
+
+		<div class="form-container">
+			<div class="register-container">
+				<h2 class="register-title">Editar Planta</h2>
+				<p class="welcome-text">Complete el formulario para editar la
+					planta.</p>
+
+				<form action="/modificarplanta" method="POST">
+					<div class="mb-3">
+						<label for="codigo" class="form-label">CÓDIGO (no
+							editable):</label> <input type="text" name="codigo" class="form-control"
+							id="codigo" readonly>
+						<div id="codigoError" class="error-message"></div>
+					</div>
+
+					<div class="mb-3">
+						<label for="nombreComun" class="form-label">NOMBRE COMÚN:</label>
+						<input type="text" class="form-control" name="nombreComun"
+							id="nombreComun" placeholder="Nombre común de la planta">
+						<div th:if="${errorNombreComun}" class="error-message">
+							<p th:text="${errorNombreComun}"></p>
+						</div>
+					</div>
+
+					<div class="mb-3">
+						<label for="nombreCientifico" class="form-label">NOMBRE
+							CIENTÍFICO:</label> <input type="text" class="form-control"
+							name="nombreCientifico" id="nombreCientifico"
+							placeholder="Nombre científico de la planta">
+						<div th:if="${errorNombreCientifico}" class="error-message">
+							<p th:text="${errorNombreCientifico}"></p>
+						</div>
+					</div>
+
+
+					<div th:if="mensaje" class="error-message">
+						<p th:text="${mensaje}"></p>
+					</div>
+
+					<div th:if="mensajeC" class="correcto-message">
+						<p th:text="${mensajeC}"></p>
+					</div>
+
+					<button type="submit" class="btn btn-register">EDITAR
+						PLANTA</button>
+				</form>
+			</div>
+		</div>
+
+	</main>
+
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="/js/modificarplanta.js"></script>
+</body>
+</html>
+

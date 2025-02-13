@@ -1,0 +1,218 @@
+:root {
+	--color-green-primary: #7a862a;
+	--color-green-light: #2b992e;
+	--color-brown-primary: #5D4037;
+	--color-brown-light: #f4e4d2;
+	--sidebar-width: 280px;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background: #f3efea;
+	max-height: 100vh;
+	margin: 0;
+}
+
+.header {
+	background: var(--color-brown-light);
+	padding: 1rem;
+	color: var(--color-green-primary);
+	position: fixed;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: 120px;
+}
+
+.logo-section {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+}
+
+.logo-placeholder {
+	width: 100px;
+	height: 100px;
+	background-color: #fff;
+	border-radius: 8px;
+}
+
+.h1 {
+	font-family: 'Courier New', Courier, monospace;
+	font-weight: bold;
+	font-size: 3rem;
+}
+
+.imgMenu {
+	width: 120px;
+	height: 120px;
+	border-radius: 10px;
+}
+
+.welcome-message {
+	color: var(--color-brown-primary);
+	margin: 0;
+	font-size: 2rem;
+}
+
+.seleccionado {
+	background: var(--color-green-primary);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	width: 110%;
+	height: 15%;
+	padding: 1rem 1.5rem;
+	color: white;
+	text-decoration: none;
+	border: 2px solid var(--color-brown-light);
+	border-radius: 10px;
+	transition: all 0.3s ease;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+	text-align: center;
+}
+
+.welcome-message i {
+	font-size: 2rem;
+	color: var(--color-brown-primary);
+	margin-right: 10px;
+	vertical-align: middle;
+}
+
+.sidebar {
+	position: fixed;
+	align-items: center;
+	left: 0;
+	top: 105px;
+	bottom: 0;
+	width: var(--sidebar-width);
+	background: var(--color-brown-light);
+	padding: 2rem;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.sidebar-button {
+	display: block;
+	width: 110%;
+	height: 15%;
+	padding: 2.5rem 1.5rem;
+	color: white;
+	text-decoration: none;
+	border: 2px solid var(--color-brown-light);
+	border-radius: 10px;
+	background: var(--color-brown-primary);
+	text-align: center;
+	transition: all 0.3s ease;
+	font-weight: 500;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+
+.sidebar-button:hover {
+	background: var(--color-green-primary);
+	color: var(--color-brown-light);
+	transform: translateY(-2px);
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-button:active {
+	transform: translateY(0);
+}
+
+.main-content {
+	margin-left: var(--sidebar-width);
+	margin-top: 80px;
+	padding: 6rem;
+	padding-top: 8rem;
+	min-height: calc(100vh - 80px);
+}
+
+.datepicker-container {
+	display: flex;
+	gap: 2rem;
+	margin-bottom: 2rem;
+}
+
+.datepicker-label {
+	font-size: 1.2rem;
+	color: var(--color-brown-primary);
+	margin-bottom: 0.5rem;
+}
+
+.ui-datepicker {
+	background: var(--color-brown-light);
+	border: 2px solid var(--color-brown-primary);
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+.ui-datepicker-header {
+	background: var(--color-green-primary);
+	color: white;
+	border: none;
+	border-radius: 8px;
+}
+
+.ui-datepicker-calendar th {
+	color: var(--color-brown-primary);
+}
+
+.ui-datepicker-calendar td a {
+	color: var(--color-brown-primary);
+}
+
+.ui-datepicker-calendar td a:hover {
+	background: var(--color-green-primary);
+	color: white;
+}
+
+.search-button {
+	background: var(--color-green-primary);
+	color: white;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	border-radius: 10px;
+	font-size: 1.2rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.search-button:hover {
+	background: var(--color-brown-primary);
+}
+
+.error-message {
+	color: #dc3545;
+	font-size: 1.5rem;
+	margin-top: 0.30rem;
+}
+
+.correcto-message {
+	color: #8e9c31;
+	font-size: 1.5rem;
+	margin-top: 0.30rem;
+}
+
+.table {
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	width: 100%;
+	text-align: left;
+}
+
+.table thead th {
+	background-color: #8e9c31;
+	color: #fff;
+}
+
+.table tbody td {
+	background-color: #8D6E63;
+	color: #fff;
+}
