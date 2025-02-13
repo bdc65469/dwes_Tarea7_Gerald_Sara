@@ -1,0 +1,51 @@
+package com.geraldSara.tarea7dwesGeraldSara.controladores;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
+import com.geraldSara.tarea7dwesGeraldSara.servicios.Sesion;
+import com.geraldSara.tarea7dwesGeraldSara.servicios.Sesion.Perfil;
+
+import jakarta.servlet.http.HttpSession;
+
+@Controller
+public class ControladorLogin {
+	
+	@Autowired
+	ServiciosFactory factory;
+
+	Sesion s = new Sesion("", Perfil.INVITADO);
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
+	}
+	
+	@PostMapping("/login")
+	public String login(@RequestParam String usuario, @RequestParam String contrasena, Model model, HttpSession session) {
+		boolean isAuthenticated = factory.getServiciosCredenciales().login(usuario, contrasena);
+
+		if (isAuthenticated) {
+			
+			session.setAttribute("usuario", usuario);
+			
+			if (usuario.equals("admin")) {
+				session.setAttribute("perfil", Perfil.ADMIN);				
+				return "redirect:/menuadmin";
+			} else {
+				s.setPerfil(Perfil.REGISTRADO);
+				session.setAttribute("perfil", Perfil.REGISTRADO);
+				return "menuadmin";
+			}
+		} else {
+			model.addAttribute("error", "Usuario o contraseña incorrectos");
+			return "login"; // Vuelve a mostrar la página de login con el error
+		}
+	}
+
+}
