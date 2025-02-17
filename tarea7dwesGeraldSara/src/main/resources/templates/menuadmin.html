@@ -36,7 +36,7 @@
 			Usuario </a> <a th:if="${session.perfil.toString() == 'ADMIN'}"
 			class="sidebar-button" th:href="@{/menuplantas}"> Menú Plantas </a> <a
 			class="sidebar-button" th:href="@{/menuejemplares}"> Menú
-			Ejemplares </a> <a class="sidebar-button" th:href="@{/menumensajes}">
+			Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
 			Cerrar Sesión </a>
 	</nav>
@@ -72,7 +72,7 @@
 				</div>
 				<p class="menu-title">Menú Ejemplares</p>
 
-			</a> <a class="menu-item" th:href="@{/menumensajes}"
+			</a> <a class="menu-item" th:href="@{/mensajes/menu}"
 				style="text-decoration: none;">
 
 				<div class="menu-icon">

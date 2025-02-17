@@ -43,7 +43,7 @@
 			Usuario </a> <a th:if="${session.perfil.toString() == 'ADMIN'}"
 			class="sidebar-button" th:href="@{/menuplantas}"> Menú Plantas </a> <a
 			class="sidebar-button" th:href="@{/menuejemplares}"> Menú
-			Ejemplares </a> <a class="seleccionado" th:href="@{/menumensajes}">
+			Ejemplares </a> <a class="seleccionado" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
 			Cerrar Sesión </a>
 	</nav>
@@ -71,7 +71,7 @@
 				<tr th:each="credencial : ${credenciales}">
 					<td class="nombre-usuario" th:text="${credencial.usuario}"></td>
 					<td>
-						<form action="/vermensajes" method="POST">
+						<form th:action="@{/mensajes/mensajesUsuario}" method="GET">
 							<input type="hidden" name="usuario"
 								th:value="${credencial.usuario}">
 							<button type="submit" class="btn-selec">Ver Mensajes</button>

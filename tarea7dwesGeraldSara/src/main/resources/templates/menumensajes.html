@@ -41,7 +41,7 @@
 			th:if="${session.perfil.toString() == 'ADMIN'}"
 			th:href="@{/menuplantas}"> Menú Plantas </a> <a
 			class="sidebar-button" th:href="@{/menuejemplares}"> Menú
-			Ejemplares </a> <a class="seleccionado" th:href="@{/menumensajes}">
+			Ejemplares </a> <a class="seleccionado" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
 			Cerrar Sesión </a>
 	</nav>
@@ -54,13 +54,13 @@
 						alt="Registrar Mensaje">
 				</div>
 				<p class="menu-title">Registrar Mensaje</p>
-			</a> <a class="menu-item" th:href="@{/vermensajesusuario}">
+			</a> <a class="menu-item" th:href="@{/mensajes/usuarios}">
 				<div class="menu-icon">
 					<img class="imgMenu" src="/imagenes/smsUsuario.jpg"
 						alt="Mensajes por Usuario">
 				</div>
 				<p class="menu-title">Mensajes por Usuario</p>
-			</a> <a class="menu-item" th:href="@{/vermensajesfecha}">
+			</a> <a class="menu-item" th:href="@{/mensajes/usuarios}">
 				<div class="menu-icon">
 					<img class="imgMenu" src="/imagenes/smsFecha.jpg"
 						alt="Mensajes por Fecha">
