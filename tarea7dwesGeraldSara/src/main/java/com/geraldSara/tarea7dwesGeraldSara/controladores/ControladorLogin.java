@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
@@ -26,7 +25,7 @@ public class ControladorLogin {
 		return "login";
 	}
 	
-	@PostMapping("/login")
+	@GetMapping("/iniciarSesion")
 	public String login(@RequestParam String usuario, @RequestParam String contrasena, Model model, HttpSession session) {
 		boolean isAuthenticated = factory.getServiciosCredenciales().login(usuario, contrasena);
 
@@ -36,11 +35,11 @@ public class ControladorLogin {
 			
 			if (usuario.equals("admin")) {
 				session.setAttribute("perfil", Perfil.ADMIN);				
-				return "redirect:/menuadmin";
+				return "redirect:/menu";
 			} else {
 				s.setPerfil(Perfil.REGISTRADO);
 				session.setAttribute("perfil", Perfil.REGISTRADO);
-				return "menuadmin";
+				return "menu";
 			}
 		} else {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");

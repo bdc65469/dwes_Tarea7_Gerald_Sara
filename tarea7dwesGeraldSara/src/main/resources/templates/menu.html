@@ -34,8 +34,8 @@
 		<a th:if="${session.perfil.toString() == 'ADMIN'}"
 			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
 			Usuario </a> <a th:if="${session.perfil.toString() == 'ADMIN'}"
-			class="sidebar-button" th:href="@{/menuplantas}"> Menú Plantas </a> <a
-			class="sidebar-button" th:href="@{/menuejemplares}"> Menú
+			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a
+			class="sidebar-button" th:href="@{/ejemplares/menu}"> Menú
 			Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
 			Cerrar Sesión </a>
@@ -53,7 +53,7 @@
 				</div>
 				<p class="menu-title">Registrar Usuario</p>
 
-			</a> <a class="menu-item" th:href="@{/menuplantas}"
+			</a> <a class="menu-item" th:href="@{/plantas/menu}"
 				th:if="${session.perfil.toString() == 'ADMIN'}"
 				style="text-decoration: none;">
 
@@ -63,7 +63,7 @@
 				</div>
 				<p class="menu-title">Menú Plantas</p>
 
-			</a> <a class="menu-item" th:href="@{/menuejemplares}"
+			</a> <a class="menu-item" th:href="@{/ejemplares/menu}"
 				style="text-decoration: none;">
 
 				<div class="menu-icon">

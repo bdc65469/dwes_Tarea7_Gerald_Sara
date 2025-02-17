@@ -29,7 +29,7 @@
 			Bienvenido al vivero. <br>Introduzca su usuario y contraseña:
 		</p>
 
-		<form action="/login" method="POST">
+		<form th:action="@{/iniciarSesion}" method="GET">
 			<div class="mb-3">
 				<label for="usuario" class="form-label">USUARIO:</label> <input
 					type="text" class="form-control" id="usuario" name="usuario"

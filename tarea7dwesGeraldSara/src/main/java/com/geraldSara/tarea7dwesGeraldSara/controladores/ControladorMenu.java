@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-public class ControladorMenuAdmin {
+public class ControladorMenu {
 
-	@GetMapping("/menuadmin")
+	@GetMapping("/menu")
 	public String menuadmin(HttpSession session) {
 		String usuario = (String) session.getAttribute("usuario");
 		if (usuario == null) {
@@ -16,7 +16,7 @@ public class ControladorMenuAdmin {
 			return "redirect:/login";
 		}
 
-		return "menuadmin";
+		return "menu";
 	}
 
 }

@@ -32,8 +32,8 @@
 
 	<nav class="sidebar">
 		<a class="sidebar-button" th:href="@{/registrarusuario}">
-			Registrar Usuario </a> <a class="seleccionado" th:href="@{/menuplantas}">
-			Menú Plantas </a> <a class="sidebar-button" th:href="@{/menuejemplares}">
+			Registrar Usuario </a> <a class="seleccionado" th:href="@{/plantas/menu}">
+			Menú Plantas </a> <a class="sidebar-button" th:href="@{/ejemplares/menu}">
 			Menú Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
 			Cerrar Sesión </a>
@@ -45,7 +45,7 @@
 			<p class="welcome-text">Complete el formulario para registrar una
 				nueva planta.</p>
 
-			<form action="/registrarplanta" method="POST">
+			<form th:action="@{/plantas/registrarPlanta}" method="POST">
 				<div class="mb-3">
 					<label for="codigo" class="form-label">CÓDIGO:</label> <input
 						type="text" name="codigo"

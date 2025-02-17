@@ -35,8 +35,8 @@
 
 	<nav class="sidebar">
 		<a class="sidebar-button" th:href="@{/registrarusuario}">
-			Registrar Usuario </a> <a class="seleccionado" th:href="@{/menuplantas}">
-			Menú Plantas </a> <a class="sidebar-button" th:href="@{/menuejemplares}">
+			Registrar Usuario </a> <a class="seleccionado" th:href="@{/plantas/menu}">
+			Menú Plantas </a> <a class="sidebar-button" th:href="@{/ejemplares/menu}">
 			Menú Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/}"> Cerrar
 			Sesión </a>
@@ -44,13 +44,13 @@
 
 	<main class="main-content">
 		<div class="menu-grid">
-			<a class="menu-item" th:href="@{/registrarplanta}">
+			<a class="menu-item" th:href="@{/plantas/formularioplanta}">
 				<div class="menu-icon">
 					<img class="imgMenu" src="/imagenes/registrarPlanta.jpg"
 						alt="Registrar Planta">
 				</div>
 				<p class="menu-title">Registrar Planta</p>
-			</a> <a class="menu-item" th:href="@{/modificarplanta}">
+			</a> <a class="menu-item" th:href="@{/plantas/formulariomodificarPlanta}">
 				<div class="menu-icon">
 					<img class="imgMenu" src="/imagenes/editarPlanta.jpg"
 						alt="Editar Planta">

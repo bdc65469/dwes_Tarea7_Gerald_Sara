@@ -42,8 +42,8 @@
 		<a th:if="${session.perfil.toString() == 'ADMIN'}"
 			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
 			Usuario </a> <a th:if="${session.perfil.toString() == 'ADMIN'}"
-			class="sidebar-button" th:href="@{/menuplantas}"> Menú Plantas </a> <a
-			class="seleccionado" th:href="@{/menuejemplares}"> Menú
+			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a
+			class="seleccionado" th:href="@{/ejemplares/menu}"> Menú
 			Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
 			Menú Mensajes </a> <a class="sidebar-button" th:href="@{/logout}">
 			Cerrar Sesión </a>
@@ -59,7 +59,7 @@
 				placeholder="Buscar por nombre común...">
 		</div>
 
-		<form action="/ejemplaresplanta" method="POST">
+		<form th:action="@{/ejemplares/ejemplaresPlanta}" method="GET">
 			<table class="table table-striped table-hover" id="plantasTable">
 				<thead>
 					<tr>
