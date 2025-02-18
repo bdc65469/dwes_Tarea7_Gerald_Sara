@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
-import com.geraldSara.tarea7dwesGeraldSara.servicios.Sesion;
 import com.geraldSara.tarea7dwesGeraldSara.servicios.Sesion.Perfil;
 
 import jakarta.servlet.http.HttpSession;
@@ -17,8 +16,6 @@ public class ControladorLogin {
 	
 	@Autowired
 	ServiciosFactory factory;
-
-	Sesion s = new Sesion("", Perfil.INVITADO);
 	
 	@GetMapping("/login")
 	public String login() {
@@ -37,10 +34,15 @@ public class ControladorLogin {
 				session.setAttribute("perfil", Perfil.ADMIN);				
 				return "redirect:/menu";
 			} else {
-				s.setPerfil(Perfil.REGISTRADO);
-				session.setAttribute("perfil", Perfil.REGISTRADO);
-				return "menu";
+				if (factory.getServiciosCredenciales().obtenerCreden(usuario, contrasena).getCliente()!=null) {
+					session.setAttribute("perfil", Perfil.CLIENTE);
+					return "redirect:/menuclientes";
+				}else {
+					session.setAttribute("perfil", Perfil.REGISTRADO);
+					return "redirect:/menu";
+				}
 			}
+				
 		} else {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");
 			return "login"; // Vuelve a mostrar la página de login con el error

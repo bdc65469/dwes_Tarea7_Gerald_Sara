@@ -11,6 +11,9 @@ public class ServiciosFactory {
 	
 	@Autowired
 	private ServiciosCliente serviCli;
+	
+	@Autowired
+	private ServiciosPedidos serviPedidos;
 
 	@Autowired
 	private ServiciosEjemplar serviEjem;
@@ -49,6 +52,10 @@ public class ServiciosFactory {
 	
 	public ServiciosCliente getServiciosClientes() {
 		return serviCli;
+	}
+	
+	public ServiciosPedidos getServiciosPedidos() {
+		return serviPedidos;
 	}
 
 	public Comprobaciones getComprobaciones() {

@@ -31,14 +31,14 @@
     </header>
 
     <nav class="sidebar">
-        <a class="sidebar-button" th:href="@{/registrarusuario}"> Realizar Pedido </a>
-        <a class="sidebar-button" th:href="@{/ejemplares/menu}"> Mis Pedidos</a>
+        <a class="sidebar-button" th:href="@{/pedidos/crearpedido}"> Realizar Pedido </a>
+        <a class="sidebar-button" th:href="@{/pedidos/mispedidos}"> Mis Pedidos</a>
         <a class="sidebar-button" th:href="@{/logout}"> Cerrar Sesión </a>
     </nav>
 
     <main class="main-content">
         <div class="menu-grid">
-            <a class="menu-item" th:href="@{/pedidos/hacerPedido}" style="text-decoration: none;">
+            <a class="menu-item" th:href="@{/pedidos/crearpedido}" style="text-decoration: none;">
 
                 <div class="menu-icon">
                     <img class="imgMenu" src="/imagenes/menuEjemplares.jpeg" alt="Realizar Pedido">

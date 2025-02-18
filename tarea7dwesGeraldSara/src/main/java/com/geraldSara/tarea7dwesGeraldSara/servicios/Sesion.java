@@ -10,7 +10,7 @@ public class Sesion {
 
 	// Enumerado Perfil
 	public enum Perfil {
-		INVITADO, REGISTRADO, ADMIN
+		INVITADO, REGISTRADO, ADMIN, CLIENTE
 	}
 
 	public Sesion(String usuario, Perfil perfil) {

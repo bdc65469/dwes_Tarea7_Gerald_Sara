@@ -13,12 +13,12 @@
 <link
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
 	rel="stylesheet">
-    <link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
 	rel="stylesheet">
 <link rel="stylesheet" href="/css/login.css">
 </head>
 <style>
-    :root {
+:root {
 	--color-green-primary: #8e9c31;
 	--color-green-light: #2b992e;
 	--color-brown-primary: #5D4037;
@@ -218,102 +218,98 @@ body {
 			<h1 class="title">ViverApp Gestión</h1>
 		</header>
 
-		<p class="welcome-text">
-			Bienvenido a ViverApp. Rellene el siguiente formulario para registrarte.
-		</p>
+		<p class="welcome-text">Bienvenido a ViverApp. Rellene el
+			siguiente formulario para registrarte.</p>
 
 		<form th:action="@{/clientes/registrarCliente}" method="POST">
-            <div class="mb-3">
-
-            </div>
+			<div class="mb-3"></div>
 			<div class="mb-3">
-                <label for="nombre" class="form-label">NOMBRE:</label> <input
-                    type="text" class="form-control" name="nombre" id="nombre"
-                    placeholder="Introduce tu nombre">
+				<label for="nombre" class="form-label">NOMBRE:</label> <input
+					type="text" class="form-control" name="nombre" id="nombre"
+					placeholder="Introduce tu nombre">
 
-                <div th:if="${errorNombre}" class="error-message">
-                    <p th:text="${errorNombre}"></p>
-                </div>
-            </div>
+				<div th:if="${errorNombre}" class="error-message">
+					<p th:text="${errorNombre}"></p>
+				</div>
+			</div>
 
-            <div class="datepicker-container">
-                <div>
-                    <label for="fechaNac" class="form-label">FECHA NACIMIENTO</label> <input type="text" id="fechaNac" name="fechaNac"
-                        class="form-control" placeholder="Selecciona tu fecha de nacimiento">
-                </div>
-                 <div th:if="${errorFecha}" class="error-message">
-                    <p th:text="${errorFecha}"></p>
-                </div>
-               
-            </div>
+			<div class="datepicker-container">
+				<div>
+					<label for="fechaNac" class="form-label">FECHA NACIMIENTO</label> <input
+						type="text" id="fechaNac" name="fechaNac" class="form-control"
+						placeholder="Selecciona tu fecha de nacimiento">
+				</div>
+				<div th:if="${errorFecha}" class="error-message">
+					<p th:text="${errorFecha}"></p>
+				</div>
 
-            <div class="mb-3">
-                <label for="email" class="form-label">EMAIL:</label> <input
-                    type="email" name="email"
-                    placeholder="Introduce tu email"
-                    class="form-control" id="email" required>
-                <div th:if="${errorEmail}" class="error-message">
-                    <p th:text="${errorEmail}"></p>
-                </div>
-            </div>
+			</div>
 
-            <div class="mb-3">
-                <label for="nif" class="form-label">NIF/NIE:</label> <input
-                    type="nif" name="nif"
-                    placeholder="Introduce tu nif/nie"
-                    class="form-control" id="nif" required>
-                <div th:if="${errorNif}" class="error-message">
-                    <p th:text="${errorNif}"></p>
-                </div>
-            </div>
+			<div class="mb-3">
+				<label for="email" class="form-label">EMAIL:</label> <input
+					type="email" name="email" placeholder="Introduce tu email"
+					class="form-control" id="email" required>
+				<div th:if="${errorEmail}" class="error-message">
+					<p th:text="${errorEmail}"></p>
+				</div>
+			</div>
+
+			<div class="mb-3">
+				<label for="nif" class="form-label">NIF/NIE:</label> <input
+					type="nif" name="nif" placeholder="Introduce tu nif/nie"
+					class="form-control" id="nif" required>
+				<div th:if="${errorNif}" class="error-message">
+					<p th:text="${errorNif}"></p>
+				</div>
+			</div>
 
 
-            <div class="mb-3">
-                <label for="direccion" class="form-label">DIRECCIÓN:</label> <input
-                    type="text" name="direccion" placeholder="Introduce tu direccion"
-                    class="form-control" id="direccion" required>
-                <div th:if="${errorDireccion}" class="error-message">
-                    <p th:text="${errorDireccion}"></p>
-                </div>
-            </div>
+			<div class="mb-3">
+				<label for="direccion" class="form-label">DIRECCIÓN:</label> <input
+					type="text" name="direccion" placeholder="Introduce tu direccion"
+					class="form-control" id="direccion" required>
+				<div th:if="${errorDireccion}" class="error-message">
+					<p th:text="${errorDireccion}"></p>
+				</div>
+			</div>
 
-            <div class="mb-3">
-                <label for="telefono" class="form-label">TELÉFONO:</label> <input
-                    type="text" name="telefono" placeholder="Introduce tu telefono"
-                    class="form-control" id="telefono" maxlength=9 required>
-                <div th:if="${errorTelefono}" class="error-message">
-                    <p th:text="${errorTelefono}"></p>
-                </div>
-            </div>
+			<div class="mb-3">
+				<label for="telefono" class="form-label">TELÉFONO:</label> <input
+					type="text" name="telefono" placeholder="Introduce tu telefono"
+					class="form-control" id="telefono" maxlength=9 required>
+				<div th:if="${errorTelefono}" class="error-message">
+					<p th:text="${errorTelefono}"></p>
+				</div>
+			</div>
 
-            <div class="mb-3">
-                <label for="usuario" class="form-label">USUARIO:</label> <input
-                    type="text" name="usuario" placeholder="Introduce tu usuario"
-                    class="form-control" id="usuario" required>
-                <div th:if="${errorUsuario}" class="error-message">
-                    <p th:text="${errorUsuario}"></p>
-                </div>
-            </div>
+			<div class="mb-3">
+				<label for="usuario" class="form-label">USUARIO:</label> <input
+					type="text" name="usuario" placeholder="Introduce tu usuario"
+					class="form-control" id="usuario" required>
+				<div th:if="${errorUsuario}" class="error-message">
+					<p th:text="${errorUsuario}"></p>
+				</div>
+			</div>
 
-            <div class="mb-4">
-                <label for="contrasena" class="form-label">CONTRASEÑA:</label> <input
-                    type="password" name="contrasena"
-                    placeholder="Introduce tu contraseña" class="form-control"
-                    id="contrasena" required>
-                <div th:if="${errorContrasena}" class="error-message">
-                    <p th:text="${errorContrasena}"></p>
-                </div>
-            </div>
+			<div class="mb-4">
+				<label for="contrasena" class="form-label">CONTRASEÑA:</label> <input
+					type="password" name="contrasena"
+					placeholder="Introduce tu contraseña" class="form-control"
+					id="contrasena" required>
+				<div th:if="${errorContrasena}" class="error-message">
+					<p th:text="${errorContrasena}"></p>
+				</div>
+			</div>
 
-            <div th:if="mensaje" class="error-message">
-                <p th:text="${mensaje}"></p>
-            </div>
+			<div th:if="mensaje" class="error-message">
+				<p th:text="${mensaje}"></p>
+			</div>
 
-            <div th:if="mensajeC" class="correcto-message">
-                <p th:text="${mensajeC}"></p>
-            </div>
+			<div th:if="mensajeC" class="correcto-message">
+				<p th:text="${mensajeC}"></p>
+			</div>
 
-            <button type="submit" class="btn btn-login">REGISTRARSE</button>
+			<button type="submit" class="btn btn-login">REGISTRARSE</button>
 
 			<div th:if="${error}">
 				<p class="text-danger" th:text="${error}"></p>
@@ -330,22 +326,21 @@ body {
 
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-        <script>
-            $(function() {
-        // Inicializar datepickers
-        $("#fechaNac").datepicker({
-            dateFormat: "dd/mm/yy",
-            showButtonPanel: false,
-            changeMonth: true,
-            changeYear: true,
-            showAnim: "slideDown",
-        });
-    
-        
-    
-    });
-        </script>
-    </body>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<script>
+		$(function() {
+			// Inicializar datepickers
+			$("#fechaNac").datepicker({
+				dateFormat : "dd/mm/yy",
+				showButtonPanel : false,
+				changeMonth : true,
+				changeYear : true,
+				showAnim : "slideDown",
+				yearRange : "1900:2025"
+			});
+
+		});
+	</script>
+</body>
 </html>

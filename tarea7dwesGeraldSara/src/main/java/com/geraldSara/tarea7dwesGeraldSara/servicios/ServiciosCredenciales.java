@@ -40,5 +40,9 @@ public class ServiciosCredenciales {
 	public List<Credenciales> listaUsuario() {
 		return credenRepo.findAllByOrderByUsuarioAsc();
 	}
+	
+	public Credenciales obtenerCreden(String usuario, String pass) {
+		return credenRepo.findByUsuarioAndPassword(usuario, pass);
+	}
 
 }
