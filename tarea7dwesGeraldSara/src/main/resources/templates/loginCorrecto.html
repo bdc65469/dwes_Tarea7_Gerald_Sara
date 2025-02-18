@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivero - Registrado correctamente</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
+<link
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+	rel="stylesheet">
+<link href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css"
+	rel="stylesheet">
+<link rel="stylesheet" href="/css/login.css">
+</head>
+<style>
+    :root {
+	--color-green-primary: #8e9c31;
+	--color-green-light: #2b992e;
+	--color-brown-primary: #5D4037;
+	--color-brown-light: #f4e4d2;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background: var(--color-green-primary);
+	min-height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	text-align: center;
+}
+
+h1 {
+    font-size: 3rem;
+    color: white;
+    font-weight: 600;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.btn-login {
+    text-decoration: none;
+	background-color: var(--color-brown-primary);
+	color: white;
+	border: none;
+	border-radius: 10px;
+	padding: 0.75rem 2rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	width: 200px;
+	transition: all 0.3s ease;
+}
+
+.btn-login:hover {
+    background-color: var(--color-brown-light);
+	color: black;
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+}
+
+.btn-login:active {
+	transform: translateY(0);
+}
+
+.btn-back {
+    position: absolute;
+    bottom: 20px;
+    background-color: var(--color-brown-primary);
+	color: white;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	text-decoration: none;
+	z-index: 1000;
+	padding: 10px 20px;
+}
+
+.btn-back i {
+	margin-right: 8px;
+	color: white;
+}
+
+.btn-back:hover {
+	background-color: var(--color-brown-light);
+	color: var(--color-brown-primary);
+	font-weight: bold;
+}
+
+.btn-back:hover i {
+	color: var(--color-brown-primary);
+}
+</style>
+<body>
+   
+	<h1>¡Enhorabuena! Ya puedes acceder a ViverApp</h1>
+
+	<a th:href="@{/login}" class="btn-login">
+		Iniciar sesión
+	</a>
+
+	<a th:href="@{/}" class="btn-back"> 
+		<i class="fas fa-arrow-left"></i> Volver
+	</a>
+</body>
+<script
+	src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+</script>
+</html>

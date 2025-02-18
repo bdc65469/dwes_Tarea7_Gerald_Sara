@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.regex.Pattern;
 
 import org.springframework.stereotype.Service;
 
@@ -188,5 +189,25 @@ public class Comprobaciones {
 			return null; // Retorna null si la fecha no es válida
 		}
 	}
+
+	public LocalDate convertirFechaNac(String fechaNac) {
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return LocalDate.parse(fechaNac, formatter);
+	}
+
+	public boolean comprobarDniNie(String documento) {
+		// Expresión regular para DNI (8 números + 1 letra)
+		String dniPattern = "^[0-9]{8}[A-HJ-NP-TV-Z]$";
+
+		// Expresión regular para NIE (X, Y o Z + 7 números + 1 letra)
+		String niePattern = "^[XYZ][0-9]{7}[A-HJ-NP-TV-Z]$";
+
+		// Compilar patrones y validar
+		return Pattern.matches(dniPattern, documento) || Pattern.matches(niePattern, documento);
+	}
+	
+	public boolean verificarTelefono(String texto) {
+        return texto != null && texto.matches("\\d+");
+    }
 
 }

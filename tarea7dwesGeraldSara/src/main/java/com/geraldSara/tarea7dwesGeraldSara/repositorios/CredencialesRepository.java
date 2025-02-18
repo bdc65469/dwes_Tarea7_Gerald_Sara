@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Credenciales;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Persona;
 
@@ -48,5 +49,8 @@ public interface CredencialesRepository extends JpaRepository<Credenciales, Long
 	 * @return Una lista de credenciales
 	 */
 	List<Credenciales> findAllByOrderByUsuarioAsc();
+	
+	@Query("SELECT c.cliente FROM Credenciales c WHERE c.usuario = :usuario")
+	Cliente findClienteByUsuario(@Param("usuario") String usuario);
 
 }

@@ -63,6 +63,18 @@ public class Cliente implements Serializable {
 		this.telefono = telefono;
 		this.credenciales = credenciales;
 	}
+	
+	
+
+	public Cliente(String nombre, LocalDate fechanac, String nif, String direccion, String email, String telefono) {
+		super();
+		this.nombre = nombre;
+		this.fechanac = fechanac;
+		this.nif = nif;
+		this.direccion = direccion;
+		this.email = email;
+		this.telefono = telefono;
+	}
 
 	public Long getId() {
 		return id;

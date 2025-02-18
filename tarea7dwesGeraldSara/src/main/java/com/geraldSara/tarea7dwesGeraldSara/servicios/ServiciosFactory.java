@@ -8,6 +8,9 @@ public class ServiciosFactory {
 
 	@Autowired
 	private ServiciosCredenciales serviCre;
+	
+	@Autowired
+	private ServiciosCliente serviCli;
 
 	@Autowired
 	private ServiciosEjemplar serviEjem;
@@ -42,6 +45,10 @@ public class ServiciosFactory {
 
 	public ServiciosCredenciales getServiciosCredenciales() {
 		return serviCre;
+	}
+	
+	public ServiciosCliente getServiciosClientes() {
+		return serviCli;
 	}
 
 	public Comprobaciones getComprobaciones() {
