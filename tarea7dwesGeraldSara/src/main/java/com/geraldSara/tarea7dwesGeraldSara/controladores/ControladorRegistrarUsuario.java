@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Credenciales;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Persona;
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Rol;
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
 
 import jakarta.servlet.http.HttpSession;
@@ -76,9 +77,9 @@ public class ControladorRegistrarUsuario {
 
 		if (valido) {
 			Persona p1 = new Persona(nombre, email);
-			Credenciales c1 = new Credenciales(usuario, contrasena);
+			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.REGISTRADO, p1);
 
-			if (factory.getServiciosPersona().crearUsuario(p1, c1) != null) {
+			if (factory.getServiciosCredenciales().registrarPersona(c1.getUsername(), c1.getPassword(), c1.getRol(), p1)!=null) {
 				model.addAttribute("mensajeC", "Usuario creado correctamente");
 			} else {
 				model.addAttribute("mensaje", "Error al registrar el nuevo usuario");

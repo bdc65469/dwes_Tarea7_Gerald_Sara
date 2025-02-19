@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Credenciales;
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Rol;
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
 
 
@@ -27,6 +28,7 @@ public class ControladorClientes {
 		
 		return "registrarcliente";
 	}
+	
 	
 	@PostMapping("/registrarCliente")
 	public String crearCliente(@RequestParam String nombre,@RequestParam String fechaNac, @RequestParam String email, @RequestParam String nif, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String usuario,
@@ -98,10 +100,10 @@ public class ControladorClientes {
 
 		if (valido) {
 			Cliente cli1 = new Cliente (nombre, fechaNaci, nif, direccion, email, telefono);
-			Credenciales c1 = new Credenciales(usuario, contrasena);
+			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.CLIENTE, cli1);
 
-			if (factory.getServiciosClientes().crearCliente(cli1, c1)!=null) {
-				return "redirect:/clientes/registrado";
+			if (factory.getServiciosCredenciales().registrarCliente(c1.getUsuario(), c1.getPassword(), c1.getRol(), cli1)!=null) {
+				return "redirect:/cliente/registrado";
 			} else {
 				model.addAttribute("mensaje", "Error al registrar el nuevo usuario");
 			}

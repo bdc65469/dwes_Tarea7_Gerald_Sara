@@ -29,26 +29,26 @@
 			Bienvenido al vivero. <br>Introduzca su usuario y contraseña:
 		</p>
 
-		<form th:action="@{/iniciarSesion}" method="GET">
+		<form th:action="@{/process_login}" method="post">
 			<div class="mb-3">
-				<label for="usuario" class="form-label">USUARIO:</label> <input
-					type="text" class="form-control" id="usuario" name="usuario"
+				<label for="username" class="form-label">USUARIO:</label> <input
+					type="text" class="form-control" id="username" name="username"
 					required>
 			</div>
 
 			<div class="mb-4">
-				<label for="contrasena" class="form-label">CONTRASEÑA:</label> <input
-					type="password" class="form-control" id="contrasena"
-					name="contrasena" required>
+				<label for="password" class="form-label">CONTRASEÑA:</label> <input
+					type="password" class="form-control" id="password" name="password"
+					required>
 			</div>
 
 			<button type="submit" class="btn btn-login">INICIAR SESIÓN</button>
 
-			<div th:if="${error}">
-				<p class="text-danger" th:text="${error}"></p>
-				<!-- Mensaje de error -->
+			<div th:if="${param.error}">
+				<p class="text-danger">Usuario o contraseña incorrectos</p>
 			</div>
 		</form>
+
 
 	</div>
 

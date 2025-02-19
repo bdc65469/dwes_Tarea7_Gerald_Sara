@@ -1,10 +1,18 @@
 package com.geraldSara.tarea7dwesGeraldSara.modelo;
 
 import java.io.Serializable;
+import java.util.Collection;
+import java.util.List;
 import java.util.Objects;
+
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -14,7 +22,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "credenciales")
-public class Credenciales implements Serializable {
+public class Credenciales implements Serializable, UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
@@ -25,8 +33,11 @@ public class Credenciales implements Serializable {
 	@Column(unique = true, length = 50)
 	private String usuario;
 
-	@Column(length = 50)
+	@Column(name = "password", length = 255)
 	private String password;
+	
+	 @Enumerated(EnumType.STRING)
+	 private Rol rol; // Agregar un campo para el rol
 
 	@OneToOne
 	@JoinColumn(name = "idPersona", unique = true, nullable = true)
@@ -46,10 +57,20 @@ public class Credenciales implements Serializable {
 		this.password = password;
 	}
 
-	public Credenciales(String usuario, String password) {
+	public Credenciales(String usuario, String password, Rol rol, Cliente c) {
 		super();
 		this.usuario = usuario;
 		this.password = password;
+		this.rol = rol;
+		this.cliente = c;
+	}
+	
+	public Credenciales(String usuario, String password, Rol rol, Persona p) {
+		super();
+		this.usuario = usuario;
+		this.password = password;
+		this.rol = rol;
+		this.persona = p;
 	}
 
 	public Credenciales(String usuario, String password, Persona persona) {
@@ -122,6 +143,44 @@ public class Credenciales implements Serializable {
 		Credenciales other = (Credenciales) obj;
 		return Objects.equals(usuario, other.usuario);
 	}
+
+	public Rol getRol() {
+        return rol;
+    }
+
+    public void setRol(Rol rol) {
+        this.rol = rol;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority("ROLE_" + rol.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return usuario;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 	
 	
 

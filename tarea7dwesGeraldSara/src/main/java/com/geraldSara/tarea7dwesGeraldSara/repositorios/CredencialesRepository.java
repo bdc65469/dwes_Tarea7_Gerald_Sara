@@ -1,6 +1,7 @@
 package com.geraldSara.tarea7dwesGeraldSara.repositorios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -52,5 +53,7 @@ public interface CredencialesRepository extends JpaRepository<Credenciales, Long
 	
 	@Query("SELECT c.cliente FROM Credenciales c WHERE c.usuario = :usuario")
 	Cliente findClienteByUsuario(@Param("usuario") String usuario);
+	
+	Optional<Credenciales> findByUsuario(String username);
 
 }

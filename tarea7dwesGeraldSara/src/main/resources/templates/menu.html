@@ -31,9 +31,9 @@
 	</header>
 
 	<nav class="sidebar">
-		<a th:if="${session.perfil.toString() == 'ADMIN'}"
+		<a  th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
-			Usuario </a> <a th:if="${session.perfil.toString() == 'ADMIN'}"
+			Usuario </a> <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a
 			class="sidebar-button" th:href="@{/ejemplares/menu}"> Menú
 			Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
@@ -45,7 +45,7 @@
 	<main class="main-content">
 		<div class="menu-grid">
 			<a class="menu-item" th:href="@{/registrarusuario}"
-				th:if="${session.perfil.toString() == 'ADMIN'}"
+				th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 				style="text-decoration: none;">
 
 				<div class="menu-icon">
@@ -55,7 +55,7 @@
 				<p class="menu-title">Registrar Usuario</p>
 
 			</a> <a class="menu-item" th:href="@{/plantas/menu}"
-				th:if="${session.perfil.toString() == 'ADMIN'}"
+				th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 				style="text-decoration: none;">
 
 				<div class="menu-icon">

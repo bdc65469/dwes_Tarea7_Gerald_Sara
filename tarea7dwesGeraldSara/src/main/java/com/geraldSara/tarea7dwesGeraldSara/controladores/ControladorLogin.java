@@ -2,14 +2,13 @@ package com.geraldSara.tarea7dwesGeraldSara.controladores;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
-import com.geraldSara.tarea7dwesGeraldSara.servicios.Sesion.Perfil;
 
-import jakarta.servlet.http.HttpSession;
+
+
 
 @Controller
 public class ControladorLogin {
@@ -17,11 +16,13 @@ public class ControladorLogin {
 	@Autowired
 	ServiciosFactory factory;
 	
+	
 	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
 	
+	/*
 	@GetMapping("/iniciarSesion")
 	public String login(@RequestParam String usuario, @RequestParam String contrasena, Model model, HttpSession session) {
 		boolean isAuthenticated = factory.getServiciosCredenciales().login(usuario, contrasena);
@@ -47,6 +48,6 @@ public class ControladorLogin {
 			model.addAttribute("error", "Usuario o contraseña incorrectos");
 			return "login"; // Vuelve a mostrar la página de login con el error
 		}
-	}
+	}*/
 
 }
