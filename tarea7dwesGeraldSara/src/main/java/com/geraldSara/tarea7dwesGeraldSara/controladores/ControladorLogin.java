@@ -36,7 +36,7 @@ public class ControladorLogin {
 			} else {
 				if (factory.getServiciosCredenciales().obtenerCreden(usuario, contrasena).getCliente()!=null) {
 					session.setAttribute("perfil", Perfil.CLIENTE);
-					return "redirect:/menuclientes";
+					return "redirect:/cliente/menu";
 				}else {
 					session.setAttribute("perfil", Perfil.REGISTRADO);
 					return "redirect:/menu";

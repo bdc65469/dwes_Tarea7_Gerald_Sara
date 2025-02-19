@@ -16,7 +16,7 @@ import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
 
 
 @Controller
-@RequestMapping("/clientes")
+@RequestMapping("/cliente")
 public class ControladorClientes {
 	
 	@Autowired
@@ -115,6 +115,11 @@ public class ControladorClientes {
 	public String loginCorrecto() {
 		
 		return "loginCorrecto";
+	}
+	
+	@GetMapping("/menu")
+	public String mostrarMenuClientes() {
+		return "menuCliente";
 	}
 
 }
