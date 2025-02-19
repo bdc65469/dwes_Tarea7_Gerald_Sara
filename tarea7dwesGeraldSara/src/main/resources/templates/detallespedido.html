@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Pedido</title>
+    <style>
+        :root {
+            --color-green-primary: #7a862a;
+            --color-green-light: #2b992e;
+            --color-brown-primary: #5D4037;
+            --color-brown-light: #f4e4d2;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--color-brown-light);
+            margin: 20px;
+        }
+        .order-card {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
+            padding: 20px;
+        }
+        h2 {
+            color: var(--color-brown-primary);
+            text-align: center;
+        }
+        .order-info {
+            margin-bottom: 15px;
+            color: var(--color-brown-primary);
+        }
+        .order-items {
+            border-top: 1px solid var(--color-brown-primary);
+            padding-top: 10px;
+            margin-top: 10px;
+        }
+        .order-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--color-brown-primary);
+        }
+        .status-select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid var(--color-brown-primary);
+            border-radius: 5px;
+            background-color: white;
+            color: var(--color-brown-primary);
+        }
+        .save-button {
+            display: block;
+            width: 100%;
+            background-color: var(--color-green-primary);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 18px;
+            margin-top: 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .save-button:hover {
+            background-color: var(--color-green-light);
+        }
+        
+        .btn-back {
+	position: fixed;
+	bottom: 60px;
+	right: 20px;
+	background-color: var(--color-brown-primary);
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	z-index: 1000;
+	color: white;
+}
+
+.btn-back i {
+	margin-right: 8px;
+	color: white;
+}
+
+.btn-back:hover {
+	background-color: var(--color-brown-light);
+	color: var(--color-brown-primary);
+	font-weight: bold;
+}
+
+.btn-back:hover i {
+	color: var(--color-brown-primary);
+}
+    </style>
+</head>
+<body>
+    <div class="order-card">
+        <h2>Detalles del Pedido</h2>
+        <div class="order-info">
+            <p><strong>Cliente:</strong> Juan Pérez</p>
+            <p><strong>Fecha:</strong> 19 de febrero de 2025</p>
+        </div>
+        <div class="order-items">
+            <div class="order-item">
+                <span>Producto 1 - $10</span>
+            </div>
+            <div class="order-item">
+                <span>Producto 2 - $20</span>
+            </div>
+        </div>
+        <div class="order-status">
+            <label for="status"><strong>Estado:</strong></label>
+            <select id="status" class="status-select">
+                <option value="pendiente">Pendiente</option>
+                <option value="enviado">Enviado</option>
+                <option value="entregado">Entregado</option>
+                <option value="recibido">Recibido</option>
+            </select>
+        </div>
+        <button class="save-button">Guardar Pedido</button>
+    </div>
+    <a th:href="@{/gestion/menuPedidos}" class="btn-back"> <i class="fas fa-arrow-left"></i>
+		Volver a menu pedidos
+	</a>
+</body>
+</html>

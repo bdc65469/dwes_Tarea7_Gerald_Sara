@@ -121,5 +121,10 @@ public class ControladorClientes {
 	public String mostrarMenuClientes() {
 		return "menuCliente";
 	}
+	
+	@GetMapping("/carrito")
+	public String mostrarCarrito() {
+		return "carrito";
+	}
 
 }

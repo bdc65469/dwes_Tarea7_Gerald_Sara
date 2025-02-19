@@ -16,7 +16,7 @@
     <header class="header">
         <div class="logo-section">
             <div class="logo-placeholder">
-                <a th:href="@{/menuCliente}"> <img src="/imagenes/Logo.jpg" alt="Logo ViverApp" width="110px"
+                <a th:href="@{/cliente/menu}"> <img src="/imagenes/Logo.jpg" alt="Logo ViverApp" width="110px"
                         height="110px">
                 </a>
             </div>
@@ -24,7 +24,7 @@
         </div>
         <p class="welcome-message">
             ¡Hola <span th:text="${session.usuario}">Usuario</span>!
-            <a class="fa fa-shopping-cart" style="font-size: 24px;"></a>
+            <a th:href="@{/cliente/carrito}" class="fa fa-shopping-cart" style="font-size: 24px;"></a>
             <span class="carrito">0</span>
         </p>
 
@@ -47,7 +47,7 @@
 
             </a> 
             
-            <a class="menu-item" th:href="@{/pedidos/misPedidos}" style="text-decoration: none;">
+            <a class="menu-item" th:href="@{/pedidos/mispedidos}" style="text-decoration: none;">
 
                 <div class="menu-icon">
                     <img class="imgMenu" src="/imagenes/pedidos.jpg" alt="Mis Pedidos">
