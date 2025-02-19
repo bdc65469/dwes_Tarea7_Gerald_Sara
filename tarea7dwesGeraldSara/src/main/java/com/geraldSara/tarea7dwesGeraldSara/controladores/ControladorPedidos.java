@@ -12,5 +12,11 @@ public class ControladorPedidos {
 	public String mostrarmisPedidos() {
 		return "misPedidos";
 	}
+	
+	@GetMapping("/realizarpedido")
+	public String realizarPedido() {
+		return "carrito";
+	}
+	
 
 }
