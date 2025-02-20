@@ -22,6 +22,11 @@ public class ControladorLogin {
 		return "login";
 	}
 	
+	@GetMapping("/sinpermisos")
+	public String sinpermisos() {
+		return "sinpermisos";
+	}
+	
 	/*
 	@GetMapping("/iniciarSesion")
 	public String login(@RequestParam String usuario, @RequestParam String contrasena, Model model, HttpSession session) {

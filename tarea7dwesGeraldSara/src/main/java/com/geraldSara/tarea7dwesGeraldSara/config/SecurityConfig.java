@@ -41,7 +41,13 @@ public class SecurityConfig {
 	            .logoutUrl("/logout")
 	            .logoutSuccessUrl("/login?logout")
 	            .permitAll()
-	        ).sessionManagement()
+	        ) 
+	        .exceptionHandling(exception -> exception
+	                .accessDeniedPage("/sinpermisos") // Redirigir a la página personalizada de error
+	                )
+	        
+	        
+	        .sessionManagement()
 	        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
 
 
