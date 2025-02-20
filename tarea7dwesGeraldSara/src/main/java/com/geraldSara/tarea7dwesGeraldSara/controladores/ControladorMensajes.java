@@ -30,11 +30,6 @@ public class ControladorMensajes {
 	//Llama al menu mensajes
 	@GetMapping("/menu")
 	public String menumensajes(HttpSession session) {
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
 		return "menumensajes";
 	}
 	

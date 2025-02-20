@@ -100,7 +100,7 @@ public class ControladorClientes {
 
 		if (valido) {
 			Cliente cli1 = new Cliente (nombre, fechaNaci, nif, direccion, email, telefono);
-			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.CLIENTE, cli1);
+			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.ROLE_CLIENTE, cli1);
 
 			if (factory.getServiciosCredenciales().registrarCliente(c1.getUsuario(), c1.getPassword(), c1.getRol(), cli1)!=null) {
 				return "redirect:/cliente/registrado";

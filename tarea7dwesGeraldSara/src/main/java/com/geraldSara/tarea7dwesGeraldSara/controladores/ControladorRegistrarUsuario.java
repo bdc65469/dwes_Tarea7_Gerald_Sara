@@ -22,11 +22,7 @@ public class ControladorRegistrarUsuario {
 
 	@GetMapping("/registrarusuario")
 	public String registrarusuario(HttpSession session) {
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
+	
 		return "registrarusuario";
 	}
 
@@ -77,7 +73,7 @@ public class ControladorRegistrarUsuario {
 
 		if (valido) {
 			Persona p1 = new Persona(nombre, email);
-			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.REGISTRADO, p1);
+			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.ROLE_REGISTRADO, p1);
 
 			if (factory.getServiciosCredenciales().registrarPersona(c1.getUsername(), c1.getPassword(), c1.getRol(), p1)!=null) {
 				model.addAttribute("mensajeC", "Usuario creado correctamente");

@@ -310,7 +310,7 @@ h1 {
 	</header>
 
 	<nav class="sidebar">
-		<a tth:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+		<a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
 			Usuario </a> <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a

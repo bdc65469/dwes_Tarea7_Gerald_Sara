@@ -25,11 +25,6 @@ public class ControladorPlantas {
 	//Menu de plantas
 	@GetMapping("/menu")
 	public String menuplantas(HttpSession session) {
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
 		return "menuplantas";
 	}
 	

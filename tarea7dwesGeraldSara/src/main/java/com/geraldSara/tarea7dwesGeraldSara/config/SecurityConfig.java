@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -26,6 +27,7 @@ public class SecurityConfig {
 	            .requestMatchers("/cliente").hasAnyRole("CLIENTE", "ADMIN", "REGISTRADO")
 	            .requestMatchers("/plantas", "/registrarusuario").hasAnyRole("ADMIN")
 	            .anyRequest().authenticated() // El resto de rutas requieren autenticación
+	            
 	        )
 	        //.csrf(csrf -> csrf.ignoringRequestMatchers("/cliente/registrarCliente"))
 	        .formLogin(login -> login
@@ -39,7 +41,9 @@ public class SecurityConfig {
 	            .logoutUrl("/logout")
 	            .logoutSuccessUrl("/login?logout")
 	            .permitAll()
-	        );
+	        ).sessionManagement()
+	        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+
 
 	    return http.build();
 	}

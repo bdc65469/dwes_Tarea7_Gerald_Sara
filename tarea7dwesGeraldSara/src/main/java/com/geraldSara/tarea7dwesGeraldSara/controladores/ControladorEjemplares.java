@@ -32,11 +32,7 @@ public class ControladorEjemplares {
 	//Menu ejemplares
 	@GetMapping("/menu")
 	public String menuejemplares(HttpSession session) {
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
+		
 		return "menuejemplares";
 	}
 	
