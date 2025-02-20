@@ -38,7 +38,7 @@
 	</header>
 
 	<nav class="sidebar">
-		<a th:if="${#authorization.expression('hasRole(''ADMIN'')')}" == 'ADMIN'}"
+		<a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
 			Usuario </a> <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a

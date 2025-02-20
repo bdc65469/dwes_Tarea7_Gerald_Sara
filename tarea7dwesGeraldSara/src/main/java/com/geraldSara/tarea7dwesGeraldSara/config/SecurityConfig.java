@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -44,27 +46,22 @@ public class SecurityConfig {
 	        ) 
 	        .exceptionHandling(exception -> exception
 	                .accessDeniedPage("/sinpermisos") // Redirigir a la página personalizada de error
-	                )
-	        
-	        
-	        .sessionManagement()
-	        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
+	                );
 
 
 	    return http.build();
 	}
 	
+	
 	@Bean
-	public AuthenticationManager authenticationManager(HttpSecurity http, UserDetailsService userDetailsService)
-	        throws Exception {
-	    return http.getSharedObject(AuthenticationManagerBuilder.class)
-	            .userDetailsService(userDetailsService)
-	            .passwordEncoder(passwordEncoder())
-	            .and()
-	            .build();
+	public AuthenticationManager authenticationManager(UserDetailsService userDetailsService, PasswordEncoder passwordEncoder) throws Exception {
+	    DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
+	    authProvider.setUserDetailsService(userDetailsService);
+	    authProvider.setPasswordEncoder(passwordEncoder);
+
+	    return new ProviderManager(authProvider);
 	}
 
-	
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
