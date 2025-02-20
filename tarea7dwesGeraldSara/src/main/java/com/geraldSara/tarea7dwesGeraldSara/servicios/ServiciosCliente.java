@@ -28,5 +28,10 @@ public class ServiciosCliente {
 		return repoCliente.existsByNif(nif);
 	}
 
+	public boolean existeEmail(String email) {
+		// TODO Auto-generated method stub
+		return repoCliente.existsByEmail(email);
+	}
+
 
 }

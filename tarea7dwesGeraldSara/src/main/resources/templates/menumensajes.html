@@ -29,16 +29,16 @@
 		</div>
 		<p class="welcome-message">
 			<i class="fa fa-user" aria-hidden="true"></i> <span
-				th:text="${session.usuario}">Usuario</span>
+				sec:authentication="name">Usuario</span>
 		</p>
 	</header>
 
 	<nav class="sidebar">
 		<a class="sidebar-button"
-			th:if="${session.perfil.toString() == 'ADMIN'}"
+			th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			th:href="@{/registrarusuario}"> Registrar Usuario </a> <a
 			class="sidebar-button"
-			th:if="${session.perfil.toString() == 'ADMIN'}"
+			th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			th:href="@{/plantas/menu}"> Menú Plantas </a> <a
 			class="sidebar-button" th:href="@{/ejemplares/menu}"> Menú
 			Ejemplares </a> <a class="seleccionado" th:href="@{/mensajes/menu}">

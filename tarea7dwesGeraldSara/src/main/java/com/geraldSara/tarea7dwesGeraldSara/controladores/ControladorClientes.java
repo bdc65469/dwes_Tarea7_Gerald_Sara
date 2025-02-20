@@ -53,7 +53,7 @@ public class ControladorClientes {
 			valido = false;
 		}
 
-		if (factory.getServiciosPersona().existeEmail(email)) {
+		if (factory.getServiciosClientes().existeEmail(email)) {
 			model.addAttribute("errorEmail", "Email ya registrado");
 			valido = false;
 		}

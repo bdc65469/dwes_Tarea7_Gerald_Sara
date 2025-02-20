@@ -16,14 +16,14 @@
     <header class="header">
         <div class="logo-section">
             <div class="logo-placeholder">
-                <a th:href="@{/cliente/menu}">> <img src="/imagenes/Logo.jpg" alt="Logo ViverApp" width="110px"
+                <a th:href="@{/cliente/menu}"> <img src="/imagenes/Logo.jpg" alt="Logo ViverApp" width="110px"
                         height="110px">
                 </a>
             </div>
             <h1 class="h1 mb-0">ViverApp Gestión</h1>
         </div>
         <p class="welcome-message">
-            <span class="usuario" th:text="${session.usuario}">Usuario</span>
+            <span class="usuario" sec:authentication="name">Usuario</span>
             <a th:href="@{/cliente/carrito}" class="fa fa-shopping-cart" style="font-size: 24px;"></a>
             <span class="carrito">0</span>
         </p>

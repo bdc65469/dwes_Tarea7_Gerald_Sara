@@ -30,12 +30,8 @@ public class ControladorPlantas {
 	
 	//Formulario para registrar plantas
 	@GetMapping("/formularioplanta")
-	public String registrarplanta(HttpSession session) {
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
+	public String registrarplanta() {
+		
 		return "registrarplanta";
 	}
 

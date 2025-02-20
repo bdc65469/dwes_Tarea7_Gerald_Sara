@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -75,13 +77,8 @@ public class ControladorMensajes {
 	
 	//Pantalla para crear mensajes
 	@GetMapping("/formularioMensaje")
-	public String listadoEjemplares(Model model, HttpSession session) {
+	public String listadoEjemplares(Model model) {
 
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
 
 		List<Ejemplar> ejemplares = factory.getServiciosEjemplar().listadoEjemplares();
 		model.addAttribute("ejemplares", ejemplares);
@@ -90,9 +87,9 @@ public class ControladorMensajes {
 
 	//Registra los mensajes
 	@PostMapping("/crearMensaje")
-	public String editarPlanta(@RequestParam String mensaje, @RequestParam("ejemplar") Long id, HttpSession session,
+	public String editarPlanta(@RequestParam String mensaje, @RequestParam("ejemplar") Long id, @AuthenticationPrincipal UserDetails userDetails,
 			Model model) {
-		String usuario = (String) session.getAttribute("usuario");
+		String usuario = userDetails.getUsername();
 
 		if (usuario != null) {
 
@@ -116,18 +113,14 @@ public class ControladorMensajes {
 					"Error al obtener el usuario conectado. No se pudo registrar el nuevo ejemplar");
 		}
 
-		listadoEjemplares(model, session);
+		listadoEjemplares(model);
 		return "registrarmensajes";
 	}
 	
 	//Menu para obtener mensajes por fecha
 	@GetMapping("/fecha")
-	public String registrarusuario(HttpSession session) {
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
+	public String registrarusuario() {
+		
 		return "vermensajesfecha";
 	}
 

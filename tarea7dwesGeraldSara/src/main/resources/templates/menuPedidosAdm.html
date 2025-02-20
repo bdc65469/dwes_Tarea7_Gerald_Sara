@@ -305,7 +305,7 @@ h1 {
 		</div>
 		<p class="welcome-message">
 			<i class="fa fa-user" aria-hidden="true"></i> <span
-				th:text="${session.usuario}">Usuario</span>
+				sec:authentication="name">Usuario</span>
 		</p>
 	</header>
 

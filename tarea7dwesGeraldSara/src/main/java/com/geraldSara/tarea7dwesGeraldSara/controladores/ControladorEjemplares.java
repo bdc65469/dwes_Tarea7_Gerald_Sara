@@ -6,6 +6,8 @@ import java.util.Map;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,23 +30,18 @@ public class ControladorEjemplares {
 
 	@Autowired
 	ServiciosFactory factory;
-	
-	//Menu ejemplares
+
+	// Menu ejemplares
 	@GetMapping("/menu")
 	public String menuejemplares(HttpSession session) {
-		
+
 		return "menuejemplares";
 	}
-	
-	//Formulario de crear ejemplares
+
+	// Formulario de crear ejemplares
 	@GetMapping("/listaPlantas")
-	public String listadoPlantas(Model model, HttpSession session) {
+	public String listadoPlantas(Model model) {
 
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
 		// Llama al servicio para obtener la lista de plantas ordenada por nombre común
 		List<Planta> plantas = factory.getServiciosPlanta().listaPlantas();
 
@@ -54,34 +51,28 @@ public class ControladorEjemplares {
 		// Retorna la vista 'crearejemplar' (crearejemplar.html)
 		return "crearejemplar";
 	}
-	
-	//Crear el ejemplar
+
+	// Crear el ejemplar
 	@PostMapping("/crearejemplar")
-	public String crearEjemplar(@RequestParam("id") Long id, Model model, HttpSession session) {
+	public String crearEjemplar(@RequestParam("id") Long id, Model model,
+			@AuthenticationPrincipal UserDetails userDetails) {
 
-		String usuario = (String) session.getAttribute("usuario");
-
-		if (usuario != null) {
-			// El usuario está presente en la sesión
-			Persona p = factory.getServiciosPersona().obtenerPersonaPorUsuario(usuario);
-			if (factory.getServiciosEjemplar().crearEjemplarYMensaje(id, p) != null) {
-				model.addAttribute("mensajeC", "Nuevo ejemplar registrado con éxito");
-			} else {
-				model.addAttribute("mensaje", "Error al actualizar los datos de la planta");
-			}
+		String usuario = userDetails.getUsername();
+		// El usuario está presente en la sesión
+		Persona p = factory.getServiciosPersona().obtenerPersonaPorUsuario(usuario);
+		if (factory.getServiciosEjemplar().crearEjemplarYMensaje(id, p) != null) {
+			model.addAttribute("mensajeC", "Nuevo ejemplar registrado con éxito");
 		} else {
-			// El usuario no está presente en la sesión
-			model.addAttribute("mensaje",
-					"Error al obtener el usuario conectado. No se pudo registrar el nuevo ejemplar");
+			model.addAttribute("mensaje", "Error al actualizar los datos de la planta");
 		}
 
-		listadoPlantas(model, session);
+		listadoPlantas(model);
 		return "crearejemplar";
 	}
-	
-	//Listado de plantas para elegir
+
+	// Listado de plantas para elegir
 	@GetMapping("/listaEjemplaresPlanta")
-	public String listadoPlantas(Model model) {
+	public String listadoPlantas1(Model model) {
 
 		List<Planta> plantas = factory.getServiciosPlanta().listaPlantas();
 
@@ -89,14 +80,15 @@ public class ControladorEjemplares {
 
 		return "verejemplaresplanta";
 	}
-	
-	//Ejemplares por planta
+
+	// Ejemplares por planta
 	@GetMapping("/ejemplaresPlanta")
 	public String listarEjemplaresPlanta(
 			@RequestParam(name = "plantasSeleccionadas", required = false) List<Long> plantasSeleccionadas, Model model,
 			RedirectAttributes redirectAttributes) {
 
-		// Mapa donde la clave es la planta y el valor es la lista de ejemplares de esa planta
+		// Mapa donde la clave es la planta y el valor es la lista de ejemplares de esa
+		// planta
 		Map<Planta, Set<Ejemplar>> ejemplaresPorPlanta = new HashMap<>();
 
 		if (plantasSeleccionadas != null) {
@@ -117,16 +109,10 @@ public class ControladorEjemplares {
 
 		return "redirect:/ejemplares/listaEjemplaresPlanta#ejemplares";
 	}
-	
-	//Lista los ejemplares
+
+	// Lista los ejemplares
 	@GetMapping("/listaEjemplares")
 	public String listadoEjemplares(Model model, HttpSession session) {
-
-		String usuario = (String) session.getAttribute("usuario");
-		if (usuario == null) {
-
-			return "redirect:/login";
-		}
 
 		List<Ejemplar> ejemplares = factory.getServiciosEjemplar().listadoEjemplares();
 		model.addAttribute("ejemplares", ejemplares);
