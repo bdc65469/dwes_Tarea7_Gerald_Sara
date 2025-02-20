@@ -41,13 +41,14 @@
 	<nav class="sidebar">
 		<a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
 			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
-			Usuario </a> <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
-			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a
-			class="seleccionado" th:href="@{/ejemplares/menu}"> Menú
+			Usuario </a> <a
+			th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a>
+		<a class="seleccionado" th:href="@{/ejemplares/menu}"> Menú
 			Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
-			Menú Mensajes </a><a class="sidebar-button" th:href="@{/gestion/menuPedidos}">
-            Menú Pedidos </a> <a class="sidebar-button" th:href="@{/logout}">
-			Cerrar Sesión </a>
+			Menú Mensajes </a><a class="sidebar-button"
+			th:href="@{/gestion/menuPedidos}"> Menú Pedidos </a> <a
+			class="sidebar-button" th:href="@{/logout}"> Cerrar Sesión </a>
 	</nav>
 
 	<main class="main-content">
@@ -87,7 +88,7 @@
 		<hr>
 
 
-<!-- Iterstat es una variable de estado que permite acceder a información adicional sobre la iteración, 
+		<!-- Iterstat es una variable de estado que permite acceder a información adicional sobre la iteración, 
 como el índice de la iteración, si es la primera o última iteración, etc. 
 No se usa explícitamente en este caso, pero se podría usar si se necesita. -->
 		<div th:each="planta, iterStat : ${ejemplaresPorPlanta}"
@@ -98,11 +99,14 @@ No se usa explícitamente en este caso, pero se podría usar si se necesita. -->
 				<thead>
 					<tr>
 						<th>Nombre</th>
+						<th>Disponible</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="ejemplar : ${planta.value}">
 						<td th:text="${ejemplar.nombre}"></td>
+						<td><span th:if="${ejemplar.disponible}"> ✅ </span> <span
+							th:unless="${ejemplar.disponible}"> ❌ </span></td>
 					</tr>
 				</tbody>
 			</table>

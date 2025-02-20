@@ -28,6 +28,17 @@ body {
 	height: 120px;
 }
 
+.carrito {
+	position: absolute;
+    top: 35px;
+    right: 17px;
+    background: red;
+    color: white;
+    font-size: 12px;
+    border-radius: 50%;
+    padding: 2px 4px;
+}
+
 .logo-section {
 	display: flex;
 	align-items: center;

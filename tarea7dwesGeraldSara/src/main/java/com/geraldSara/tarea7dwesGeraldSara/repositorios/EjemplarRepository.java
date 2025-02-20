@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Set;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Ejemplar;
@@ -41,5 +43,8 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Long> {
 	 * @return Un conjunto de ejemplares de una planta
 	 */
 	Set<Ejemplar> findByPlantaCodigo(String codigo);
+	
+	 @Query("SELECT COUNT(e) FROM Ejemplar e WHERE e.planta = :planta AND e.disponible = true")
+	    Long contarEjemplaresDisponiblesPorPlanta(@Param("planta") Planta planta);
 
 }
