@@ -29,7 +29,7 @@ public class SecurityConfig {
 	            .anyRequest().authenticated() // El resto de rutas requieren autenticación
 	            
 	        )
-	        //.csrf(csrf -> csrf.ignoringRequestMatchers("/cliente/registrarCliente"))
+	         
 	        .formLogin(login -> login
 	        	    .loginPage("/login")
 	        	    .loginProcessingUrl("/process_login") // Spring Security manejará este endpoint

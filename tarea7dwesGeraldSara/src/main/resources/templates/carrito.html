@@ -106,24 +106,20 @@
 </head>
 <body>
     <div class="cart-container">
-        <h2>Carrito de Compras</h2>
-        <div id="cart-items">
-            <div class="cart-item">
-                <span>Producto 1 - $10</span>
-                <button class="delete-button" onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
-            </div>
-            <div class="cart-item">
-                <span>Producto 2 - $20</span>
-                <button class="delete-button" onclick="removeItem(this)"><i class="fas fa-trash"></i></button>
-            </div>
+    <h2>Carrito de Compras</h2>
+    <div id="cart-items">
+        <div th:each="entry : ${carrito}" class="cart-item">
+            <span th:text="${entry.key.nombrecomun} + ' - Cantidad: ' + ${entry.value}"></span>
+            <form th:action="@{/cliente/eliminarCarrito}" method="POST" style="display:inline;">
+                <input type="hidden" name="plantaId" th:value="${entry.key.id}">
+                <button class="delete-button"><i class="fas fa-trash"></i></button>
+            </form>
         </div>
-        <button class="pay-button">Realizar pedido</button>
-        
     </div>
-    
-     <a th:href="@{/cliente/menu}" class="btn-back"> <i class="fas fa-arrow-left"></i>
-		Volver a pedidos
-	</a>
+    <button class="pay-button">Realizar pedido</button>
+</div>
+<a th:href="@{/cliente/menu}" class="btn-back"> <i class="fas fa-arrow-left"></i> Volver a pedidos </a>
+
     
     <script>
         function removeItem(button) {
