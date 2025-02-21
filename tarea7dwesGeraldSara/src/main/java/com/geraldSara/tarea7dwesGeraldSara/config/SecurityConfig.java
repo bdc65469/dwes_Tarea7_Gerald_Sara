@@ -23,9 +23,9 @@ public class SecurityConfig {
 	    http
 	        .authorizeHttpRequests(auth -> auth
 	            .requestMatchers("/", "/index", "/plantas/listadoPlantas", "/cliente/formularioRegistro", "/cliente/registrarCliente", "/cliente/registrado", "/css/**", "/imagenes/**").permitAll() // Permitir acceso libre a la página de inicio
-	            .requestMatchers("/mensajes", "/ejemplares", "/cliente", "/pedidos", "/gestion", "/menu").hasAnyRole("REGISTRADO",  "ADMIN")
-	            .requestMatchers("/cliente").hasAnyRole("CLIENTE", "ADMIN", "REGISTRADO")
-	            .requestMatchers("/plantas", "/registrarusuario").hasAnyRole("ADMIN")
+	            .requestMatchers("/mensajes/**", "/ejemplares/**", "/gestion/**", "/menu/**").hasAnyRole("REGISTRADO",  "ADMIN")
+	            .requestMatchers("/cliente/**", "/pedidos/**").hasAnyRole("CLIENTE")
+	            .requestMatchers("/plantas/**", "/registrarusuario").hasAnyRole("ADMIN")
 	            .anyRequest().authenticated() // El resto de rutas requieren autenticación
 	            
 	        )
