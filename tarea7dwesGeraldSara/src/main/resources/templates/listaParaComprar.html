@@ -33,7 +33,7 @@
 		</div>
 		 <p class="welcome-message">
             <span class="usuario" sec:authentication="name">Usuario</span>
-            <a th:href="@{/cliente/carrito}" class="fa fa-shopping-cart" style="font-size: 24px;"></a>
+            <a th:href="@{/cliente/vercarrito}" class="fa fa-shopping-cart" style="font-size: 24px;"></a>
             <span class="carrito">0</span>
         </p>
 	</header>
@@ -67,19 +67,17 @@
             <tr th:each="entry : ${ejemplares}">
                 <td th:text="${entry.key.nombrecomun}"></td>
                 <td th:text="${entry.key.nombrecientifico}"></td>
-               
                 <td>
                     <input type="number" class="form-control cantidad-input"
-                            th:name="'cantidades_' + ${entry.key.id}"  
+                           th:name="'cantidades_' + ${entry.key.id}"
                            min="0" 
                            th:max="${entry.value}" 
-                           value="0"
-                           onkeydown="return false;">
+                           value="0">
                 </td>
             </tr>
         </tbody>
     </table>
-      <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+    <input type="hidden" name="_csrf" th:value="${_csrf.token}" />
     <div class="text-center mt-3">
         <button type="submit" class="btn-selec">Añadir al Carrito</button>
     </div>

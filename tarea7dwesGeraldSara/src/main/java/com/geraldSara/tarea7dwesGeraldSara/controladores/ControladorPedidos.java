@@ -30,6 +30,7 @@ public class ControladorPedidos {
 		return "carrito";
 	}
 	
+	//Muestra la lista de los ejemplares disponibles
 	@GetMapping("/stock")
 	public String stock(Model model) {
 		

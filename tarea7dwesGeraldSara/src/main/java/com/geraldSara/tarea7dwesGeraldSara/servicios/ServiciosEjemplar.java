@@ -58,4 +58,9 @@ public class ServiciosEjemplar {
 	public Long numEjemplaresPorPlanta (Planta p) {
 		return repoEjemplar.contarEjemplaresDisponiblesPorPlanta(p);
 	}
+	
+
+	public List<Ejemplar> listaEjemplaresPorPlanta(Long id) {
+		return repoEjemplar.findByPlanta_Id(id);	}
+	
 }

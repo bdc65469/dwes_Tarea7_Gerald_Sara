@@ -12,11 +12,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.geraldSara.tarea7dwesGeraldSara.util.CarritoSesion;
+
 @Configuration
 public class SecurityConfig {
 	
 	@Autowired
 	private GestionRoles gestor;
+	
+	@Autowired
+    private CarritoSesion carritoSesion;
 
 	@Bean
 	public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -39,6 +44,7 @@ public class SecurityConfig {
 	        	)
 	        .logout(logout -> logout
 	            .logoutUrl("/logout")
+	            .addLogoutHandler((request, response, authentication) -> carritoSesion.vaciarCarrito()) // Aquí vaciamos el carrito
 	            .logoutSuccessUrl("/login?logout")
 	            .permitAll()
 	        ) 
