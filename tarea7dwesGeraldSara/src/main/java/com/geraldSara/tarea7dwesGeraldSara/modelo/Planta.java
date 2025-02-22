@@ -2,6 +2,7 @@ package com.geraldSara.tarea7dwesGeraldSara.modelo;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -89,5 +90,24 @@ public class Planta implements Serializable {
 	public String toString() {
 		return this.nombrecomun;
 	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(codigo);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Planta other = (Planta) obj;
+		return Objects.equals(codigo, other.codigo);
+	}
+	
+	
 
 }

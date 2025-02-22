@@ -55,7 +55,7 @@ public class ServiciosEjemplar {
 				.orElseThrow(() -> new EntityNotFoundException("Ejemplar no encontrada con el ID: " + id));
 	}
 	
-	public Long numEjemplaresPorPlanta (Planta p) {
+	public Integer numEjemplaresPorPlanta (Planta p) {
 		return repoEjemplar.contarEjemplaresDisponiblesPorPlanta(p);
 	}
 	
