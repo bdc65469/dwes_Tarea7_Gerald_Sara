@@ -48,5 +48,8 @@ public interface EjemplarRepository extends JpaRepository<Ejemplar, Long> {
 		int contarEjemplaresDisponiblesPorPlanta(@Param("planta") Planta planta);
 	 
 	 List<Ejemplar> findByPlanta_Id(Long plantaId); 
+	 
+	 @Query("SELECT e FROM Ejemplar e WHERE e.planta = :planta AND e.disponible = true")
+	 List<Ejemplar> ejemplaresDisponiblesPorPlanta(@Param("planta") Planta planta);
 
 }

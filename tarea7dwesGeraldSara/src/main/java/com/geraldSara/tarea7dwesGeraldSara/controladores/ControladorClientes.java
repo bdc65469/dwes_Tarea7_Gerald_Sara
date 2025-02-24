@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,111 +18,131 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Credenciales;
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Pedido;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Planta;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.PlantaDTO;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Rol;
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
 import com.geraldSara.tarea7dwesGeraldSara.util.CarritoSesion;
 
-
 @Controller
 @RequestMapping("/cliente")
 //@SessionAttributes("carrito") // Mantiene el carrito en la sesión del usuario
 public class ControladorClientes {
-	
+
 	@Autowired
 	ServiciosFactory factory;
-	
+
 	@Autowired
-    private CarritoSesion carritoSesion;
-	
-	
+	private CarritoSesion carritoSesion;
+
 	@ModelAttribute("carrito")
-    public List<PlantaDTO> crearCarrito() {
-        return new ArrayList<>(); // Se crea un carrito vacío al iniciar sesión
-    }
-	
+	public List<PlantaDTO> crearCarrito() {
+		return new ArrayList<>(); // Se crea un carrito vacío al iniciar sesión
+	}
+
 	/*
+	 * @PostMapping("/agregarCarrito") public String agregarAlCarrito(@RequestParam
+	 * Map<String, String> cantidades,
+	 * 
+	 * @ModelAttribute("carrito") List<PlantaDTO> carrito) { // Itera sobre las
+	 * plantas seleccionadas for (Map.Entry<String, String> entry :
+	 * cantidades.entrySet()) {
+	 * 
+	 * if (entry.getKey().equals("_csrf")) { continue; } Long plantaId =
+	 * Long.parseLong(entry.getKey().split("_")[1]); int cantidad =
+	 * Integer.parseInt(entry.getValue());
+	 * 
+	 * if (cantidad > 0) { // Crea un DTO con la info de la planta PlantaDTO planta
+	 * = new PlantaDTO(plantaId, cantidad); carrito.add(planta); } }
+	 * 
+	 * return "redirect:/cliente/carrito"; }
+	 */
+
+	// PlantaDTO tiene id de planta y una cantidad
+	@GetMapping("/carrito")
+	public String agreagarCarrito(@ModelAttribute("carrito") List<PlantaDTO> carrito, Model model) {
+		Map<Planta, Integer> plantas = carritoSesion.getPlantas();
+		for (PlantaDTO p : carrito) {
+			Planta plan = factory.getServiciosPlanta().obtenerPlantaporId(p.getId());
+			plantas.put(plan, p.getCantidad());
+		}
+		model.addAttribute("carrito", plantas);
+		return "carrito";
+	}
+
 	@PostMapping("/agregarCarrito")
-    public String agregarAlCarrito(@RequestParam Map<String, String> cantidades, 
-                                   @ModelAttribute("carrito") List<PlantaDTO> carrito) {
-        // Itera sobre las plantas seleccionadas
-        for (Map.Entry<String, String> entry : cantidades.entrySet()) {
-        	
-        	if (entry.getKey().equals("_csrf")) {
-                continue;
-            }
-        	Long plantaId = Long.parseLong(entry.getKey().split("_")[1]);
-            int cantidad = Integer.parseInt(entry.getValue());
+	public String agregarAlCarrito(@RequestParam Map<String, String> cantidades) {
+		for (Map.Entry<String, String> entry : cantidades.entrySet()) {
+			if (entry.getKey().equals("_csrf")) {
+				continue; // Ignorar token CSRF
+			}
 
-            if (cantidad > 0) {
-                // Crea un DTO con la info de la planta
-                PlantaDTO planta = new PlantaDTO(plantaId, cantidad);
-                carrito.add(planta);
-            }
-        }
+			try {
+				Long plantaId = Long.parseLong(entry.getKey().replace("cantidades_", ""));
+				int cantidad = Integer.parseInt(entry.getValue());
 
-        return "redirect:/cliente/carrito";
-    }*/
+				if (cantidad > 0) {
+					Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(plantaId);
+					carritoSesion.agregarPlanta(planta, cantidad);
+				}
+			} catch (NumberFormatException e) {
+				System.out.println("Error procesando la cantidad o el ID: " + entry.getKey());
+			}
+		}
+		return "redirect:/cliente/carrito";
+	}
 
-	//PlantaDTO tiene id de planta y una cantidad
-    @GetMapping("/carrito")
-    public String agreagarCarrito(@ModelAttribute("carrito") List<PlantaDTO> carrito, Model model) {
-    	Map<Planta, Integer> plantas = carritoSesion.getPlantas();
-    	for (PlantaDTO p: carrito) {
-    		Planta plan = factory.getServiciosPlanta().obtenerPlantaporId(p.getId());
-    		plantas.put(plan, p.getCantidad());
-    	}
-        model.addAttribute("carrito", plantas);
-        return "carrito";
-    }
-	
-	 @PostMapping("/agregarCarrito")
-	    public String agregarAlCarrito(@RequestParam Map<String, String> cantidades) {
-	        for (Map.Entry<String, String> entry : cantidades.entrySet()) {
-	            if (entry.getKey().equals("_csrf")) {
-	                continue; // Ignorar token CSRF
-	            }
+	@GetMapping("/vercarrito")
+	public String verCarrito(Model model) {
+		model.addAttribute("carrito", carritoSesion.getPlantas());
+		return "carrito";
+	}
 
-	            try {
-	                Long plantaId = Long.parseLong(entry.getKey().replace("cantidades_", ""));
-	                int cantidad = Integer.parseInt(entry.getValue());
+	/*
+	 * @PostMapping("/eliminarCarrito") public String
+	 * eliminarDelCarrito(@RequestParam("plantaId") Long plantaId,
+	 * 
+	 * @ModelAttribute("carrito") List<PlantaDTO> carrito) { carrito.removeIf(p ->
+	 * p.getId().equals(plantaId)); return "redirect:/cliente/carrito"; }
+	 */
 
-	                if (cantidad > 0) {
-	                    Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(plantaId);
-	                    carritoSesion.agregarPlanta(planta, cantidad);
-	                }
-	            } catch (NumberFormatException e) {
-	                System.out.println("Error procesando la cantidad o el ID: " + entry.getKey());
-	            }
-	        }
-	        return "redirect:/cliente/carrito";
-	    }
-    
-    @GetMapping("/vercarrito")
-    public String verCarrito(Model model) {
-        model.addAttribute("carrito", carritoSesion.getPlantas());
-        return "carrito";
-    }
+	@PostMapping("/hacerPedido")
+	public String hacerPedido(@RequestParam Map<String, String> params, 
+			@AuthenticationPrincipal UserDetails userDetails) {
+		
+		if (!params.isEmpty()) {
+			Cliente c = factory.getServiciosClientes().obtenerClientePorUsuario(userDetails.getUsername());
+			Pedido nuevo = new Pedido (c);
+			if(factory.getServiciosPedidos().crearPedido(nuevo)!=null) {
+				for (String key : params.keySet()) {
 
-    /*
-    @PostMapping("/eliminarCarrito")
-    public String eliminarDelCarrito(@RequestParam("plantaId") Long plantaId, 
-                                     @ModelAttribute("carrito") List<PlantaDTO> carrito) {
-        carrito.removeIf(p -> p.getId().equals(plantaId));
-        return "redirect:/cliente/carrito";
-    }*/
-	
+					if (key.contains("plantaId")) {
+
+						Planta p = factory.getServiciosPlanta().obtenerPlantaporId(Long.valueOf(params.get(key)));
+						String cantidadKey = key.replace("plantaId", "cantidad"); // Obtener la cantidad correspondiente
+						Integer cantidad = Integer.valueOf(params.get(cantidadKey));
+
+						factory.getServiciosPedidos().asignarEjemplares(p, cantidad, c, nuevo);
+					}
+				}
+			}
+		}
+
+		return "menuCliente";
+
+	}
+
 	@GetMapping("/formularioRegistro")
 	public String registrarusuario() {
-		
+
 		return "registrarcliente";
 	}
-	
-	
+
 	@PostMapping("/registrarCliente")
-	public String crearCliente(@RequestParam String nombre,@RequestParam String fechaNac, @RequestParam String email, @RequestParam String nif, @RequestParam String direccion, @RequestParam String telefono, @RequestParam String usuario,
-			@RequestParam String contrasena, Model model) {
+	public String crearCliente(@RequestParam String nombre, @RequestParam String fechaNac, @RequestParam String email,
+			@RequestParam String nif, @RequestParam String direccion, @RequestParam String telefono,
+			@RequestParam String usuario, @RequestParam String contrasena, Model model) {
 
 		boolean valido = true;
 		LocalDate fechaNaci = null;
@@ -128,11 +150,11 @@ public class ControladorClientes {
 			model.addAttribute("errorNombre", "Nombre no válido");
 			valido = false;
 		}
-		
+
 		if (fechaNac.equals("")) {
 			model.addAttribute("errorFecha", "Debes introducir una fecha");
 			valido = false;
-		}else {
+		} else {
 			fechaNaci = factory.getComprobaciones().convertirFechaNac(fechaNac);
 		}
 
@@ -145,17 +167,17 @@ public class ControladorClientes {
 			model.addAttribute("errorEmail", "Email ya registrado");
 			valido = false;
 		}
-		
+
 		if (!factory.getComprobaciones().comprobarDniNie(nif)) {
 			model.addAttribute("errorNif", "Nif o nie no válido");
 			valido = false;
 		}
-		
+
 		if (factory.getServiciosClientes().existeNif(nif)) {
 			model.addAttribute("errorNif", "Nif o nie registrado");
 			valido = false;
 		}
-		
+
 		if (!factory.getComprobaciones().verificarTelefono(telefono)) {
 			model.addAttribute("errorTelefono", "Solo puede contener números");
 			valido = false;
@@ -187,10 +209,11 @@ public class ControladorClientes {
 		}
 
 		if (valido) {
-			Cliente cli1 = new Cliente (nombre, fechaNaci, nif, direccion, email, telefono);
+			Cliente cli1 = new Cliente(nombre, fechaNaci, nif, direccion, email, telefono);
 			Credenciales c1 = new Credenciales(usuario, contrasena, Rol.ROLE_CLIENTE, cli1);
 
-			if (factory.getServiciosCredenciales().registrarCliente(c1.getUsuario(), c1.getPassword(), c1.getRol(), cli1)!=null) {
+			if (factory.getServiciosCredenciales().registrarCliente(c1.getUsuario(), c1.getPassword(), c1.getRol(),
+					cli1) != null) {
 				return "redirect:/cliente/registrado";
 			} else {
 				model.addAttribute("mensaje", "Error al registrar el nuevo usuario");
@@ -200,18 +223,16 @@ public class ControladorClientes {
 		return "registrarcliente";
 
 	}
-	
+
 	@GetMapping("/registrado")
 	public String loginCorrecto() {
-		
+
 		return "loginCorrecto";
 	}
-	
+
 	@GetMapping("/menu")
 	public String mostrarMenuClientes() {
 		return "menuCliente";
 	}
-	
-	
 
 }

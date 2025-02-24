@@ -63,4 +63,12 @@ public class ServiciosEjemplar {
 	public List<Ejemplar> listaEjemplaresPorPlanta(Long id) {
 		return repoEjemplar.findByPlanta_Id(id);	}
 	
+	public Ejemplar actualizarEjemplar (Ejemplar e) {
+		return repoEjemplar.saveAndFlush(e);
+	}
+	
+	public  List<Ejemplar> listaEjemplaresDisponiblesPorPlanta(Planta p){
+		return repoEjemplar.ejemplaresDisponiblesPorPlanta(p);
+	}
+	
 }

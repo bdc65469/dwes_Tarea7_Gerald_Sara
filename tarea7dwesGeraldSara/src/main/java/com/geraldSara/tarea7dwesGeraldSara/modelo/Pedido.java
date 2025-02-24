@@ -2,9 +2,9 @@ package com.geraldSara.tarea7dwesGeraldSara.modelo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -35,7 +35,7 @@ public class Pedido implements Serializable{
 	private Cliente cliente;
 	
 	@OneToMany(mappedBy = "pedido", cascade = CascadeType.ALL)
-	private Set<Ejemplar> ejemplares = new HashSet<Ejemplar>();
+	private List<Ejemplar> ejemplares = new ArrayList<Ejemplar>();
 	
 
 	public Pedido() {
@@ -43,11 +43,10 @@ public class Pedido implements Serializable{
 	}
 
 
-	public Pedido(Cliente cliente, Set<Ejemplar> ejemplares) {
+	public Pedido(Cliente cliente) {
 		super();
 		this.cliente = cliente;
 		this.fecha = LocalDate.now();
-		this.ejemplares = ejemplares;
 		this.estado = Estado.Pendiente;
 	}
 
@@ -91,12 +90,12 @@ public class Pedido implements Serializable{
 	}
 
 
-	public Set<Ejemplar> getEjemplares() {
+	public List<Ejemplar> getEjemplares() {
 		return ejemplares;
 	}
 
 
-	public void setEjemplares(Set<Ejemplar> ejemplares) {
+	public void setEjemplares(List<Ejemplar> ejemplares) {
 		this.ejemplares = ejemplares;
 	}
 
