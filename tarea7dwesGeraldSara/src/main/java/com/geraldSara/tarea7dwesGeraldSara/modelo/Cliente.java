@@ -47,6 +47,9 @@ public class Cliente implements Serializable {
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
 	private Set<Pedido> pedidos = new HashSet<Pedido>();
+	
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
+	private Set<Mensaje> mensajes = new HashSet<Mensaje>();
 
 	public Cliente() {
 		super();

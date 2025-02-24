@@ -105,19 +105,43 @@
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
+
+<div class="cart-container">
+    <h2>Carrito de Compras</h2>
+    <div id="cart-items">
+        <form th:action="@{/cliente/hacerPedido}" method="POST">
+            <div th:each="entry : ${carrito}" class="cart-item" style="display: flex; align-items: center;">
+                <span th:text="${entry.key.nombrecomun} + ' - Cantidad: ' + ${entry.value}" style="margin-right: 10px;"></span>
+                
+                <!-- Formulario para eliminar el producto (independiente del de hacer pedido) -->
+                <form th:action="@{/cliente/eliminarCarrito}" method="POST" style="display:inline; margin-left: 10px;">
+                    <input type="hidden" name="plantaId" th:value="${entry.key.id}">
+                    <button class="delete-button"><i class="fas fa-trash"></i></button>
+                </form>
+            </div>
+             <button type="submit" class="pay-button">Realizar pedido</button>
+        </form>
+    </div>
+</div>
+<!--  
     <div class="cart-container">
     <h2>Carrito de Compras</h2>
     <div id="cart-items">
+    <form th:action="@{/cliente/hacerPedido}" method="POST">
         <div th:each="entry : ${carrito}" class="cart-item">
             <span th:text="${entry.key.nombrecomun} + ' - Cantidad: ' + ${entry.value}"></span>
+            
             <form th:action="@{/cliente/eliminarCarrito}" method="POST" style="display:inline;">
                 <input type="hidden" name="plantaId" th:value="${entry.key.id}">
                 <button class="delete-button"><i class="fas fa-trash"></i></button>
             </form>
         </div>
+        <button type="submit" class="pay-button">Realizar pedido</button>
+       </form>
     </div>
-    <button class="pay-button">Realizar pedido</button>
+ 
 </div>
+-->
 <a th:href="@{/cliente/menu}" class="btn-back"> <i class="fas fa-arrow-left"></i> Volver a pedidos </a>
 
     

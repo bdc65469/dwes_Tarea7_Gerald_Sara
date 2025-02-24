@@ -36,8 +36,12 @@ public class Mensaje implements Serializable {
 	private Ejemplar ejemplar;
 
 	@ManyToOne
-	@JoinColumn(name = "idPersona")
+	@JoinColumn(name = "idPersona", nullable=true)
 	private Persona persona;
+	
+	@ManyToOne
+	@JoinColumn(name = "idCliente", nullable=true)
+	private Cliente cliente;
 
 	public Mensaje() {
 	}
@@ -56,6 +60,13 @@ public class Mensaje implements Serializable {
 		this.persona = persona;
 	}
 
+	public Mensaje(LocalDateTime fechahora, String mensaje, Ejemplar ejemplar, Cliente cliente) {
+		this.fechahora = fechahora;
+		this.mensaje = mensaje;
+		this.ejemplar = ejemplar;
+		this.cliente = cliente;
+	}
+	
 	public Long getId() {
 		return id;
 	}
