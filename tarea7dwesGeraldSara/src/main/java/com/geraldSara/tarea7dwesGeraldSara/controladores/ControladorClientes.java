@@ -2,6 +2,7 @@ package com.geraldSara.tarea7dwesGeraldSara.controladores;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Credenciales;
@@ -88,13 +90,19 @@ public class ControladorClientes {
 	    return "redirect:/cliente/carrito"; // Redirige de nuevo al carrito
 	}
 
+	@GetMapping ("/detallesPedidoRealizado")
+	public String detalles () {
+		return "pedidoRealizado";
+	}
+
 	@PostMapping("/hacerPedido")
 	public String hacerPedido(@RequestParam Map<String, String> params, 
-			@AuthenticationPrincipal UserDetails userDetails) {
+			@AuthenticationPrincipal UserDetails userDetails, RedirectAttributes redirect) {
 		
 		if (!params.isEmpty()) {
 			Cliente c = factory.getServiciosClientes().obtenerClientePorUsuario(userDetails.getUsername());
 			Pedido nuevo = new Pedido (c);
+			Map <Planta, Integer> lista = new HashMap <Planta, Integer>();
 			if(factory.getServiciosPedidos().crearPedido(nuevo)!=null) {
 				for (String key : params.keySet()) {
 
@@ -103,13 +111,20 @@ public class ControladorClientes {
 						Planta p = factory.getServiciosPlanta().obtenerPlantaporId(Long.valueOf(params.get(key)));
 						String cantidadKey = key.replace("plantaId", "cantidad"); // Obtener la cantidad correspondiente
 						Integer cantidad = Integer.valueOf(params.get(cantidadKey));
+						lista.put(p, cantidad);
+						
+						System.out.println(cantidad);
 
-					if(factory.getServiciosPedidos().asignarEjemplares(p, cantidad, c, nuevo)) {
-						carritoSesion.getPlantas().clear();
-					}
+						factory.getServiciosPedidos().asignarEjemplares(p, cantidad, c, nuevo);											
+						
 					}
 				}
 			}
+			carritoSesion.getPlantas().clear();
+			redirect.addFlashAttribute("cliente", c);
+			redirect.addFlashAttribute("pedido", nuevo);
+			redirect.addFlashAttribute("detallesPedido", lista);
+			return "redirect:/cliente/detallesPedidoRealizado";
 		}
 
 		return "menuCliente";

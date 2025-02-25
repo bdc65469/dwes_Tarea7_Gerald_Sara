@@ -90,7 +90,6 @@ public class ControladorEjemplares {
 		// Mapa donde la clave es la planta y el valor es la lista de ejemplares de esa
 		// planta
 		Map<Planta, Set<Ejemplar>> ejemplaresPorPlanta = new HashMap<>();
-
 		if (plantasSeleccionadas != null) {
 			for (Long id : plantasSeleccionadas) {
 				Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(id);
@@ -103,6 +102,8 @@ public class ControladorEjemplares {
 				}
 			}
 		}
+		
+		
 
 		listadoPlantas(model);
 		redirectAttributes.addFlashAttribute("ejemplaresPorPlanta", ejemplaresPorPlanta);
@@ -120,10 +121,12 @@ public class ControladorEjemplares {
 	}
 
 	@GetMapping("/mensajesEjemplar")
-	public String crearEjemplar(@RequestParam("id") Long id, RedirectAttributes redirectAttributes, HttpSession session,
+	public String mensajesEjemplar(@RequestParam("id") Long id, RedirectAttributes redirectAttributes, HttpSession session,
 			Model model) {
 
 		List<Mensaje> listadoMensajes = factory.getServiciosMensaje().obtenerMensajesPorIdEjemplar(id);
+		int totalSms = listadoMensajes.size();
+		
 
 		// Uso de redirect:, los atributos agregados al model no se mantienen porque la
 		// redirección hace una nueva solicitud HTTP y los datos originales no se
