@@ -50,7 +50,7 @@
             cursor: pointer;
         }
         .delete-button i {
-            color: var(--color-green-light);
+            color: red;
             font-size: 20px;
         }
         .pay-button {
@@ -116,11 +116,11 @@
                <input type="hidden" th:name="'carrito[' + ${stat.index} + '].plantaId'" th:value="${entry.key.id}"> <!-- Planta ID -->
                 <input type="hidden" th:name="'carrito[' + ${stat.index} + '].cantidad'" th:value="${entry.value}"> <!-- Cantidad -->
                 
-                <!-- Formulario para eliminar el producto (independiente del de hacer pedido) 
+              
                 <form th:action="@{/cliente/eliminarCarrito}" method="POST" style="display:inline; margin-left: 10px;">
                     <input type="hidden" name="plantaId" th:value="${entry.key.id}">
                     <button class="delete-button"><i class="fas fa-trash"></i></button>
-                </form>-->
+                </form>
             </div>
              <button type="submit" class="pay-button">Realizar pedido</button>
         </form>

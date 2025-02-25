@@ -25,4 +25,8 @@ public class CarritoSesion {
     public void vaciarCarrito() {
         plantas.clear();
     }
+    
+    public void eliminarPlanta(Planta planta) {
+	    plantas.remove(planta);
+}
 }

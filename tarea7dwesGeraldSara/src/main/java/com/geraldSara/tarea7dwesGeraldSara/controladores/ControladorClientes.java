@@ -27,7 +27,6 @@ import com.geraldSara.tarea7dwesGeraldSara.util.CarritoSesion;
 
 @Controller
 @RequestMapping("/cliente")
-//@SessionAttributes("carrito") // Mantiene el carrito en la sesión del usuario
 public class ControladorClientes {
 
 	@Autowired
@@ -41,23 +40,6 @@ public class ControladorClientes {
 		return new ArrayList<>(); // Se crea un carrito vacío al iniciar sesión
 	}
 
-	/*
-	 * @PostMapping("/agregarCarrito") public String agregarAlCarrito(@RequestParam
-	 * Map<String, String> cantidades,
-	 * 
-	 * @ModelAttribute("carrito") List<PlantaDTO> carrito) { // Itera sobre las
-	 * plantas seleccionadas for (Map.Entry<String, String> entry :
-	 * cantidades.entrySet()) {
-	 * 
-	 * if (entry.getKey().equals("_csrf")) { continue; } Long plantaId =
-	 * Long.parseLong(entry.getKey().split("_")[1]); int cantidad =
-	 * Integer.parseInt(entry.getValue());
-	 * 
-	 * if (cantidad > 0) { // Crea un DTO con la info de la planta PlantaDTO planta
-	 * = new PlantaDTO(plantaId, cantidad); carrito.add(planta); } }
-	 * 
-	 * return "redirect:/cliente/carrito"; }
-	 */
 
 	// PlantaDTO tiene id de planta y una cantidad
 	@GetMapping("/carrito")
@@ -99,13 +81,16 @@ public class ControladorClientes {
 		return "carrito";
 	}
 
-	/*
-	 * @PostMapping("/eliminarCarrito") public String
-	 * eliminarDelCarrito(@RequestParam("plantaId") Long plantaId,
-	 * 
-	 * @ModelAttribute("carrito") List<PlantaDTO> carrito) { carrito.removeIf(p ->
-	 * p.getId().equals(plantaId)); return "redirect:/cliente/carrito"; }
-	 */
+    @PostMapping("/eliminarCarrito")
+    public String eliminarDelCarrito(@RequestParam("plantaId") Long plantaId, 
+                                     @ModelAttribute("carrito") List<PlantaDTO> carrito) {
+    	
+    	Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(plantaId);
+    	carritoSesion.eliminarPlanta(planta);
+        
+
+        return "redirect:/cliente/carrito";
+    }
 
 	@PostMapping("/hacerPedido")
 	public String hacerPedido(@RequestParam Map<String, String> params, 
