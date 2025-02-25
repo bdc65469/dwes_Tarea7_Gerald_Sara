@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivero - Mensajes Por Usuario</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/vermensajesusuario.css">
+<style>
+#searchInput:focus {
+	border-color: brown;
+	box-shadow: 0 0 5px rgba(165, 42, 42, 0.5);
+	outline: none;
+}
+</style>
+</head>
+<body>
+	<header class="header">
+		<div class="logo-section">
+			<div class="logo-placeholder">
+				<a th:href="@{/menu}"> <img src="/imagenes/Logo.jpg"
+					alt="Logo ViverApp" width="110px" height="110px">
+				</a>
+			</div>
+			<h1 class="h1 mb-0">ViverApp Gestión</h1>
+		</div>
+		<p class="welcome-message">
+			<i class="fa fa-user" aria-hidden="true"></i> <span
+				sec:authentication="name">Usuario</span>
+		</p>
+	</header>
+
+	<nav class="sidebar">
+		<a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+			class="sidebar-button" th:href="@{/registrarusuario}"> Registrar
+			Usuario </a> <a th:if="${#authorization.expression('hasRole(''ADMIN'')')}"
+			class="sidebar-button" th:href="@{/plantas/menu}"> Menú Plantas </a> <a
+			class="sidebar-button" th:href="@{/ejemplares/menu}"> Menú
+			Ejemplares </a> <a class="seleccionado" th:href="@{/mensajes/menu}">
+			Menú Mensajes </a><a class="sidebar-button" th:href="@{/gestion/menuPedidos}">
+            Menú Pedidos </a> <a class="sidebar-button" th:href="@{/logout}">
+			Cerrar Sesión </a>
+	</nav>
+
+	<main class="main-content">
+		<h3 class="text-center titulo">Haz clic en el botón "Ver
+			mensajes" de un Usuario para ver sus mensajes</h3>
+
+
+		<div class="mb-3">
+			<input type="text" id="searchInput" class="form-control"
+				placeholder="Buscar por nombre de usuario...">
+		</div>
+
+
+		<table class="table table-striped table-hover" id="usuariosTable">
+			<thead>
+				<tr>
+					<th>Nombre de Usuario</th>
+					<th>Mensajes</th>
+				</tr>
+			</thead>
+			<tbody>
+
+				<tr th:each="credencial : ${credenciales}">
+					<td class="nombre-usuario" th:text="${credencial.usuario}"></td>
+					<td>
+						<form th:action="@{/mensajes/mensajesUsuario}" method="GET">
+							<input type="hidden" name="usuario"
+								th:value="${credencial.usuario}">
+							<button type="submit" class="btn-selec">Ver Mensajes</button>
+						</form>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+		<br>
+		<hr>
+		<br>
+
+
+		<div th:if="${usuarioSeleccionado}">
+			<h4 th:text="'Mensajes de ' + ${usuarioSeleccionado}" class="titulo"></h4>
+
+			<div th:if="${not #lists.isEmpty(mensajes)}">
+				<table class="table table-bordered" id="mensajes">
+					<thead>
+						<tr>
+							<th>Mensaje</th>
+							<th>Ejemplar</th>
+							<th>Fecha</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="mensaje : ${mensajes}">
+							<td th:text="${mensaje.mensaje}"></td>
+							<td th:text="${mensaje.ejemplar.nombre}"></td>
+							<!-- #temporals.format(): Función de Thymeleaf para formatear fechas. -->
+							<td
+								th:text="${#temporals.format(mensaje.fechahora, 'dd/MM/yyyy HH:mm')}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<div th:if="${#lists.isEmpty(mensajes)}">
+				<p th:text="${mensajeVacio}" class="text-danger"></p>
+			</div>
+		</div>
+	</main>
+
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js">
+		
+	</script>
+
+	<script src="/js/vermensajesusuario.js">
+		
+	</script>
+
+</body>
+</html>

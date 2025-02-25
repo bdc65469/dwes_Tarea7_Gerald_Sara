@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org/">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vivero - Menú Plantas</title>
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="/css/menuplantas.css">
+
+</head>
+
+<body>
+	<header class="header">
+		<div class="logo-section">
+			<div class="logo-placeholder">
+				<a th:href="@{/menu}"> <img src="/imagenes/Logo.jpg"
+					alt="Logo ViverApp" width="110px" height="110px">
+				</a>
+			</div>
+			<h1 class="h1 mb-0">ViverApp Gestión</h1>
+		</div>
+		<p class="welcome-message">
+			<i class="fa fa-user" aria-hidden="true"></i> <span
+				sec:authentication="name">Usuario</span>
+		</p>
+	</header>
+
+	<nav class="sidebar">
+		<a class="sidebar-button" th:href="@{/registrarusuario}">
+			Registrar Usuario </a> <a class="seleccionado" th:href="@{/plantas/menu}">
+			Menú Plantas </a> <a class="sidebar-button" th:href="@{/ejemplares/menu}">
+			Menú Ejemplares </a> <a class="sidebar-button" th:href="@{/mensajes/menu}">
+			Menú Mensajes </a><a class="sidebar-button" th:href="@{/gestion/menuPedidos}">
+            Menú Pedidos </a> <a class="sidebar-button" th:href="@{/}"> Cerrar
+			Sesión </a>
+	</nav>
+
+	<main class="main-content">
+		<div class="menu-grid">
+			<a class="menu-item" th:href="@{/plantas/formularioplanta}">
+				<div class="menu-icon">
+					<img class="imgMenu" src="/imagenes/registrarPlanta.jpg"
+						alt="Registrar Planta">
+				</div>
+				<p class="menu-title">Registrar Planta</p>
+			</a> <a class="menu-item" th:href="@{/plantas/formulariomodificarPlanta}">
+				<div class="menu-icon">
+					<img class="imgMenu" src="/imagenes/editarPlanta.jpg"
+						alt="Editar Planta">
+				</div>
+				<p class="menu-title">Editar Planta</p>
+			</a>
+		</div>
+	</main>
+
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -13,10 +13,12 @@ import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Pedido;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Planta;
 import com.geraldSara.tarea7dwesGeraldSara.repositorios.PedidoRepository;
-import com.geraldSara.tarea7dwesGeraldSara.util.CarritoSesion;
+
 
 @Service
 public class ServiciosPedidos {
+	@Autowired
+	Comprobaciones comprobaciones;
 
 	@Autowired
 	private PedidoRepository repoPedido;
@@ -26,9 +28,7 @@ public class ServiciosPedidos {
 
 	@Autowired
 	private ServiciosMensaje servMensaje;
-
-	@Autowired
-	private CarritoSesion carritoSesion;
+	
 	
 	public Pedido crearPedido (Pedido p) {
 		return repoPedido.save(p);
@@ -48,12 +48,9 @@ public class ServiciosPedidos {
 				ejemplares.get(i).setPedido(pedido);
 				if (servEjemplar.actualizarEjemplar(ejemplares.get(i))!=null) {
 					String mensaje = "El cliente " + c.getNombre() + " compró el ejemplar " + ejemplares.get(i).getNombre()
-							+ " el día " + LocalDateTime.now() + " en el pedido " + pedido.getId();
+							+ " el día " + comprobaciones.formatoFecha(LocalDateTime.now()) + " en el pedido " + pedido.getId();
 					Mensaje m = new Mensaje(LocalDateTime.now(), mensaje, ejemplares.get(i), c);
 					if (servMensaje.crearMensaje(m) == null) {
-						return false;
-					}
-					if (carritoSesion.getPlantas().remove(p) == null) {
 						return false;
 					}
 				}else {

@@ -81,16 +81,12 @@ public class ControladorClientes {
 		return "carrito";
 	}
 
-    @PostMapping("/eliminarCarrito")
-    public String eliminarDelCarrito(@RequestParam("plantaId") Long plantaId, 
-                                     @ModelAttribute("carrito") List<PlantaDTO> carrito) {
-    	
-    	Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(plantaId);
-    	carritoSesion.eliminarPlanta(planta);
-        
-
-        return "redirect:/cliente/carrito";
-    }
+	@GetMapping("/eliminarCarrito")
+	public String eliminarDelCarrito(@RequestParam("plantaId") Long plantaId) {
+	    Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(plantaId);
+	    carritoSesion.eliminarPlanta(planta);
+	    return "redirect:/cliente/carrito"; // Redirige de nuevo al carrito
+	}
 
 	@PostMapping("/hacerPedido")
 	public String hacerPedido(@RequestParam Map<String, String> params, 
@@ -108,7 +104,9 @@ public class ControladorClientes {
 						String cantidadKey = key.replace("plantaId", "cantidad"); // Obtener la cantidad correspondiente
 						Integer cantidad = Integer.valueOf(params.get(cantidadKey));
 
-						factory.getServiciosPedidos().asignarEjemplares(p, cantidad, c, nuevo);
+					if(factory.getServiciosPedidos().asignarEjemplares(p, cantidad, c, nuevo)) {
+						carritoSesion.getPlantas().clear();
+					}
 					}
 				}
 			}

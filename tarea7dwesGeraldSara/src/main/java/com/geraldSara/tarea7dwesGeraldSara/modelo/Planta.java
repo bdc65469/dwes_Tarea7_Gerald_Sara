@@ -16,7 +16,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "plantas")
-public class Planta implements Serializable {
+public class Planta implements Serializable, Comparable<Planta> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -107,6 +107,11 @@ public class Planta implements Serializable {
 		Planta other = (Planta) obj;
 		return Objects.equals(codigo, other.codigo);
 	}
+
+	 @Override
+	    public int compareTo(Planta otraPlanta) {
+	        return this.nombrecomun.compareTo(otraPlanta.nombrecomun); 
+	    }
 	
 	
 

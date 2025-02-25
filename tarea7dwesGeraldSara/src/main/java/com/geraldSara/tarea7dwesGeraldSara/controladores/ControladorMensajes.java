@@ -1,6 +1,7 @@
 package com.geraldSara.tarea7dwesGeraldSara.controladores;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Credenciales;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Ejemplar;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
@@ -52,22 +54,34 @@ public class ControladorMensajes {
 
 	    // Obtener la persona por su usuario
 	    Persona p = factory.getServiciosPersona().obtenerPersonaPorUsuario(usuario);
+	    List<Mensaje> mensajes = new ArrayList<Mensaje>();
 
 	    // Verificar si la persona existe
 	    if (p == null) {
-	        model.addAttribute("mensajeError", "El usuario no existe o no tiene mensajes.");
-	        return listadoUsuarios(model); // Cargar nuevamente la lista de usuarios
+	    	Cliente c = factory.getServiciosClientes().obtenerClientePorUsuario(usuario);
+	    	
+	    	
+	    	
+	    	if ( c == null) {
+	    		model.addAttribute("mensajeError", "El usuario no existe o no tiene mensajes.");
+		        return listadoUsuarios(model); // Cargar nuevamente la lista de usuarios
+	    	}else {
+	    		mensajes = factory.getServiciosMensaje().obtenerMensajesPorCliente(c);
+	    	}
+	        
+	    }else {
+	    	 // Obtener los mensajes de la persona
+		    mensajes = factory.getServiciosMensaje().obtenerMensajesPorPersona(p.getId());
 	    }
 
-	    // Obtener los mensajes de la persona
-	    List<Mensaje> mensajes = factory.getServiciosMensaje().obtenerMensajesPorPersona(p.getId());
+	   
 
 	    // Agregar datos al modelo
 	    redirectAttributes.addFlashAttribute("usuarioSeleccionado", usuario);
 	    redirectAttributes.addFlashAttribute("mensajes", mensajes);
 	    
 	    if (mensajes.isEmpty()) {
-	        model.addAttribute("mensajeVacio", "El usuario aún no tiene mensajes.");
+	    	redirectAttributes.addFlashAttribute("mensajeVacio", "El usuario aún no tiene mensajes.");
 	    }
 
 	    listadoUsuarios(model);
@@ -126,7 +140,7 @@ public class ControladorMensajes {
 
 	//Obtiene los mensajes por fecha
 	@GetMapping("/mensajesFecha")
-	public String crearUsuario(@RequestParam String fechaInicial, @RequestParam String fechaFinal, Model model) {
+	public String mensajesPorFecha(@RequestParam String fechaInicial, @RequestParam String fechaFinal, Model model) {
 
 		if (factory.getComprobaciones().convertirFechaInicio(fechaInicial) != null
 				&& factory.getComprobaciones().convertirFechaFin(fechaFinal) != null) {

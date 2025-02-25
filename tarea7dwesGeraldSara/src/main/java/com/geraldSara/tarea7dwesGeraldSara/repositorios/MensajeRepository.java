@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
 
 @Repository
@@ -50,5 +51,7 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Long> {
 	 */
 	@Query("SELECT m FROM Mensaje m " + "JOIN m.ejemplar e " + "JOIN e.planta p " + "WHERE p.codigo = :codigo")
 	List<Mensaje> obtenerMensajesPorPlanta(@Param("codigo") String codigo);
+	
+	List<Mensaje> findByCliente (Cliente c);
 
 }

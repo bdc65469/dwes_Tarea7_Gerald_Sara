@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Ejemplar;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Persona;
@@ -50,6 +51,10 @@ public class ServiciosMensaje {
 
 	public List<Mensaje> obtenerMensajesPorPlanta(String codigo) {
 		return repoMensaje.obtenerMensajesPorPlanta(codigo);
+	}
+	
+	public List<Mensaje> obtenerMensajesPorCliente(Cliente c) {
+		return repoMensaje.findByCliente(c);
 	}
 
 }

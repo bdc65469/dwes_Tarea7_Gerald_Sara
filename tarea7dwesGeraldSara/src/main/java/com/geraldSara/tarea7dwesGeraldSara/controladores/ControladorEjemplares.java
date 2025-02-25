@@ -106,7 +106,7 @@ public class ControladorEjemplares {
 
 		listadoPlantas(model);
 		redirectAttributes.addFlashAttribute("ejemplaresPorPlanta", ejemplaresPorPlanta);
-
+		
 		return "redirect:/ejemplares/listaEjemplaresPlanta#ejemplares";
 	}
 

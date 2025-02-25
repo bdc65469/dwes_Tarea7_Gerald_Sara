@@ -1,8 +1,8 @@
 package com.geraldSara.tarea7dwesGeraldSara.controladores;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -39,7 +39,7 @@ public class ControladorPedidos {
 	public String stock(Model model) {
 
 		List<Planta> plantas = factory.getServiciosPlanta().listaPlantas();
-		Map<Planta, Integer> ejemplaresPlanta = new HashMap<Planta, Integer>();
+		Map<Planta, Integer> ejemplaresPlanta = new TreeMap<Planta, Integer>();
 		for (int i = 0; i < plantas.size(); i++) {
 			ejemplaresPlanta.put(plantas.get(i), factory.getServiciosEjemplar().numEjemplaresPorPlanta(plantas.get(i)));
 		}
