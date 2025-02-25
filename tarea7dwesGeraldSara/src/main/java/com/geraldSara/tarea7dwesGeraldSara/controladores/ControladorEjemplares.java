@@ -1,5 +1,7 @@
 package com.geraldSara.tarea7dwesGeraldSara.controladores;
 
+import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -84,32 +86,48 @@ public class ControladorEjemplares {
 	// Ejemplares por planta
 	@GetMapping("/ejemplaresPlanta")
 	public String listarEjemplaresPlanta(
-			@RequestParam(name = "plantasSeleccionadas", required = false) List<Long> plantasSeleccionadas, Model model,
-			RedirectAttributes redirectAttributes) {
+	        @RequestParam(name = "plantasSeleccionadas", required = false) List<Long> plantasSeleccionadas,
+	        Model model, RedirectAttributes redirectAttributes) {
 
-		// Mapa donde la clave es la planta y el valor es la lista de ejemplares de esa
-		// planta
-		Map<Planta, Set<Ejemplar>> ejemplaresPorPlanta = new HashMap<>();
-		if (plantasSeleccionadas != null) {
-			for (Long id : plantasSeleccionadas) {
-				Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(id);
-				if (planta != null) {
+	    Map<Planta, Set<Ejemplar>> ejemplaresPorPlanta = new HashMap<>();
+	    Map<Long, Integer> mensajesPorEjemplar = new HashMap<>();
+	    Map<Long, LocalDateTime> ultimoMensajePorEjemplar = new HashMap<>();
 
-					// Obtener los ejemplares de la planta y agregarlos al mapa
-					Set<Ejemplar> ejemplares = factory.getServiciosEjemplar()
-							.filtarEjemplaresPlanta(planta.getCodigo());
-					ejemplaresPorPlanta.put(planta, ejemplares);
-				}
-			}
-		}
-		
-		
+	    if (plantasSeleccionadas != null) {
+	        for (Long id : plantasSeleccionadas) {
+	            Planta planta = factory.getServiciosPlanta().obtenerPlantaporId(id);
+	            if (planta != null) {
+	                Set<Ejemplar> ejemplares = factory.getServiciosEjemplar()
+	                        .filtarEjemplaresPlanta(planta.getCodigo());
+	                
+	                // Guardar los ejemplares en el mapa principal
+	                ejemplaresPorPlanta.put(planta, ejemplares);
 
-		listadoPlantas(model);
-		redirectAttributes.addFlashAttribute("ejemplaresPorPlanta", ejemplaresPorPlanta);
-		
-		return "redirect:/ejemplares/listaEjemplaresPlanta#ejemplares";
+	                // Para cada ejemplar, obtener sus mensajes
+	                for (Ejemplar ejemplar : ejemplares) {
+	                    List<Mensaje> mensajes = factory.getServiciosMensaje().obtenerMensajesPorEjemplar(ejemplar);
+	                    mensajesPorEjemplar.put(ejemplar.getId(), mensajes.size());
+
+	                    // Obtener la fecha del último mensaje si existen mensajes
+	                    if (!mensajes.isEmpty()) {
+	                    	mensajes.sort(Comparator.comparing(Mensaje::getFechahora).reversed());
+	                        ultimoMensajePorEjemplar.put(ejemplar.getId(), mensajes.get(0).getFechahora());
+	                    } else {
+	                        ultimoMensajePorEjemplar.put(ejemplar.getId(), null);
+	                    }
+	                }
+	            }
+	        }
+	    }
+
+	    listadoPlantas(model);
+	    redirectAttributes.addFlashAttribute("ejemplaresPorPlanta", ejemplaresPorPlanta);
+	    redirectAttributes.addFlashAttribute("mensajesPorEjemplar", mensajesPorEjemplar);
+	    redirectAttributes.addFlashAttribute("ultimoMensajePorEjemplar", ultimoMensajePorEjemplar);
+
+	    return "redirect:/ejemplares/listaEjemplaresPlanta#ejemplares";
 	}
+
 
 	// Lista los ejemplares
 	@GetMapping("/listaEjemplares")
@@ -125,9 +143,7 @@ public class ControladorEjemplares {
 			Model model) {
 
 		List<Mensaje> listadoMensajes = factory.getServiciosMensaje().obtenerMensajesPorIdEjemplar(id);
-		int totalSms = listadoMensajes.size();
 		
-
 		// Uso de redirect:, los atributos agregados al model no se mantienen porque la
 		// redirección hace una nueva solicitud HTTP y los datos originales no se
 		// transfieren automáticamente

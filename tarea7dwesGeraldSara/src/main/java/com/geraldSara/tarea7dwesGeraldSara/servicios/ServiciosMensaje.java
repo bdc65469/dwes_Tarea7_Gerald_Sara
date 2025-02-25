@@ -29,7 +29,7 @@ public class ServiciosMensaje {
 	}
 
 	public List<Mensaje> obtenerMensajesPorIdEjemplar(Long idejemplar) {
-		return repoMensaje.findByEjemplarIdOrderByFechaHoraAsc(idejemplar);
+		return repoMensaje.findByEjemplarIdOrderByFechaHora(idejemplar);
 	}
 
 	public Mensaje crearMensaje(String mensaje, Long idEjemplar, String usuario) {
@@ -55,6 +55,10 @@ public class ServiciosMensaje {
 	
 	public List<Mensaje> obtenerMensajesPorCliente(Cliente c) {
 		return repoMensaje.findByCliente(c);
+	}
+
+	public List<Mensaje> obtenerMensajesPorEjemplar(Ejemplar e) {
+		return repoMensaje.findByEjemplar(e);
 	}
 
 }

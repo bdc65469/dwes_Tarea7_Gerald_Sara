@@ -9,6 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Ejemplar;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
 
 @Repository
@@ -20,8 +21,8 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Long> {
 	 * @param idEjemplar id del ejemplar a buscar
 	 * @return Lista de mensajes
 	 */
-	@Query("SELECT m FROM Mensaje m JOIN m.ejemplar e WHERE e.id = :idEjemplar ORDER BY m.fechahora ASC")
-	List<Mensaje> findByEjemplarIdOrderByFechaHoraAsc(@Param("idEjemplar") Long idEjemplar);
+	@Query("SELECT m FROM Mensaje m JOIN m.ejemplar e WHERE e.id = :idEjemplar ORDER BY m.fechahora DESC")
+	List<Mensaje> findByEjemplarIdOrderByFechaHora(@Param("idEjemplar") Long idEjemplar);
 
 	/**
 	 * Filtra los mensajes realizados por una persona
@@ -53,5 +54,7 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Long> {
 	List<Mensaje> obtenerMensajesPorPlanta(@Param("codigo") String codigo);
 	
 	List<Mensaje> findByCliente (Cliente c);
+
+	List<Mensaje> findByEjemplar(Ejemplar e);
 
 }

@@ -74,6 +74,15 @@ public class Mensaje implements Serializable {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 
 	public LocalDateTime getFechahora() {
 		return fechahora;

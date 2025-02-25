@@ -47,7 +47,7 @@ public class ServiciosEjemplar {
 	}
 
 	public List<Ejemplar> listadoEjemplares() {
-		return repoEjemplar.findAll();
+		return repoEjemplar.findAllByOrderByNombre();
 	}
 
 	public Ejemplar obtenerEjemplarporId(Long id) {

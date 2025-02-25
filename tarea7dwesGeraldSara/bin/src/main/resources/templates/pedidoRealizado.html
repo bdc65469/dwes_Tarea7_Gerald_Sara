@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmación de Pedido</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<style>
+:root {
+	--color-green-primary: #7a862a;
+	--color-green-light: #2b992e;
+	--color-brown-primary: #5D4037;
+	--color-brown-light: #f4e4d2;
+}
+
+body {
+	background-color: var(--color-brown-light);
+	font-family: Arial, sans-serif;
+}
+
+.success-message {
+	background-color: var(--color-green-light);
+	color: white;
+	text-align: center;
+	padding: 15px;
+	font-size: 18px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+.card {
+	background-color: white;
+	border-left: 5px solid var(--color-brown-primary);
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+
+.section-title {
+	color: var(--color-brown-primary);
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+hr {
+	border: 1px solid var(--color-brown-primary);
+}
+
+        .btn-back {
+	position: fixed;
+	bottom: 60px;
+	right: 20px;
+	background-color: var(--color-brown-primary);
+	color: white;
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	font-size: 16px;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	text-decoration: none;
+	z-index: 1000;
+	color: white;
+}
+
+.btn-back i {
+	margin-right: 8px;
+	color: white;
+}
+
+.btn-back:hover {
+	border: 2x solid var(--color-brown-primary);
+	background-color: var(--color-brown-light);
+	color: var(--color-brown-primary);
+	font-weight: bold;
+}
+
+.btn-back:hover i {
+	color: var(--color-brown-primary);
+}
+</style>
+</head>
+<body>
+
+	<div class="container mt-4">
+		<!-- Mensaje de éxito -->
+		<div class="success-message">✅ Pedido realizado con éxito</div>
+
+		<!-- Título Detalles de pedido -->
+		<h3 class="section-title">Detalles de pedido</h3>
+		<hr>
+
+		<!-- Tarjeta con detalles -->
+		<div class="card">
+			<h5 class="section-title">Datos del Cliente</h5>
+			<p>
+				<strong>Nombre:</strong> <span th:text="${cliente.nombre}"></span>
+			</p>
+			<p>
+				<strong>Teléfono:</strong> <span th:text="${cliente.telefono}"></span>
+			</p>
+			<p>
+				<strong>Dirección:</strong> <span th:text="${cliente.direccion}"></span>
+			</p>
+			<p>
+				<strong>Email:</strong> <span th:text="${cliente.email}"></span>
+			</p>
+
+			<h5 class="section-title mt-4">Datos del Pedido</h5>
+			<p>
+				<strong>Número de Pedido:</strong> <span th:text="${pedido.id}"></span>
+			</p>
+			<ul>
+				<li th:each="entry : ${detallesPedido}">🌱<span
+					th:text="${entry.key.nombrecomun}">Nombre de la Planta</span> -
+					Cantidad: <span th:text="${entry.value}">Cantidad</span></li>
+			</ul>
+
+		</div>
+	</div>
+	
+	<a th:href="@{/cliente/menu}" class="btn-back"> <i class="fas fa-arrow-left"></i> Volver a pedidos </a>
+
+</body>
+</html>

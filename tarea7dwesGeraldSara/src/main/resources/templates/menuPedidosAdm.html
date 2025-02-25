@@ -354,23 +354,20 @@ h1 {
 				</tr>
 			</thead>
 			<tbody>
-
-				<tr th:each="pedido : ${pedidos}">
-					<td class="nombre-comun" th:text="${pedido.id}"></td>
-					<td th:text="${pedido.fecha}"></td>
-                    <td th:text="${pedido.cliente.nombre}"></td>
-                    <td th:text="${recorrer pedido}"></td>
-                    <td th:text="${pedido.estado}"></td>
-
-					<td>
-						<form th:action="@{/ejemplares/mensajesEjemplar}" method="GET"
-							onsubmit="scrollToMessages()">
-							<input type="hidden" name="id" th:value="${ejemplar.id}">
-							<button type="submit" th:href="@{/gestion/detallesPedido}" class="btn-selec">Detalles pedido</button>
-						</form>
-					</td>
-				</tr>
-			</tbody>
+					<tr th:each="pedido : ${pedidos}">
+						<td class="id-pedido" th:text="${pedido.id}"></td>
+						<td class="fecha" th:text="${pedido.fecha}"></td>
+						<td class="cliente" th:text="${pedido.cliente.nombre}"></td>
+						<td>
+							<ul class="lista-plantas">
+								<li th:each="entry : ${pedidosResumen[pedido.id]}"><span th:text="${entry.key.nombrecomun}"></span>: 
+                                <span th:text="${entry.value}"></span> ejemplares</li>
+							</ul>
+						</td>
+						<td class="estado" th:text="${pedido.estado}"></td>
+						
+					</tr>
+				</tbody>
 		</table>
 
 

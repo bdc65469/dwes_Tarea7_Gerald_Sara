@@ -95,16 +95,21 @@ No se usa explícitamente en este caso, pero se podría usar si se necesita. -->
 			id="ejemplares">
 			<h4 th:text="'Ejemplares de ' + ${planta.key.nombrecomun}"
 				class="titulo"></h4>
+				
 			<table class="table table-bordered">
 				<thead>
 					<tr>
 						<th>Nombre</th>
+						<th>Total Mensajes</th>
+						<th>Último mensaje</th>
 						<th>Disponible</th>
 					</tr>
 				</thead>
 				<tbody>
 					<tr th:each="ejemplar : ${planta.value}">
 						<td th:text="${ejemplar.nombre}"></td>
+						<td></td>
+						<td></td>
 						<td><span th:if="${ejemplar.disponible}"> ✅ </span> <span
 							th:unless="${ejemplar.disponible}"> ❌ </span></td>
 					</tr>

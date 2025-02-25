@@ -14,7 +14,6 @@ import com.geraldSara.tarea7dwesGeraldSara.modelo.Pedido;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Planta;
 import com.geraldSara.tarea7dwesGeraldSara.repositorios.PedidoRepository;
 
-
 @Service
 public class ServiciosPedidos {
 	@Autowired
@@ -28,43 +27,44 @@ public class ServiciosPedidos {
 
 	@Autowired
 	private ServiciosMensaje servMensaje;
-	
-	
-	public Pedido crearPedido (Pedido p) {
+
+	public Pedido crearPedido(Pedido p) {
 		return repoPedido.save(p);
 	}
 
 	@Transactional
 	public boolean asignarEjemplares(Planta p, int cantidad, Cliente c, Pedido pe) {
-		
 
 		List<Ejemplar> ejemplares = servEjemplar.listaEjemplaresDisponiblesPorPlanta(p);
 
 		Pedido pedido = repoPedido.findPedidoById(pe.getId());
-		
-		
-			for (int i = 0; i < cantidad; i++) {
-				ejemplares.get(i).setDisponible(false);
-				ejemplares.get(i).setPedido(pedido);
-				if (servEjemplar.actualizarEjemplar(ejemplares.get(i))!=null) {
-					String mensaje = "El cliente " + c.getNombre() + " compró el ejemplar " + ejemplares.get(i).getNombre()
-							+ " el día " + comprobaciones.formatoFecha(LocalDateTime.now()) + " en el pedido " + pedido.getId();
-					Mensaje m = new Mensaje(LocalDateTime.now(), mensaje, ejemplares.get(i), c);
-					if (servMensaje.crearMensaje(m) == null) {
-						return false;
-					}
-				}else {
+
+		for (int i = 0; i < cantidad; i++) {
+			ejemplares.get(i).setDisponible(false);
+			ejemplares.get(i).setPedido(pedido);
+			if (servEjemplar.actualizarEjemplar(ejemplares.get(i)) != null) {
+				String mensaje = "El cliente " + c.getNombre() + " compró el ejemplar " + ejemplares.get(i).getNombre()
+						+ " el día " + comprobaciones.formatoFecha(LocalDateTime.now()) + " en el pedido "
+						+ pedido.getId();
+				Mensaje m = new Mensaje(LocalDateTime.now(), mensaje, ejemplares.get(i), c);
+				if (servMensaje.crearMensaje(m) == null) {
 					return false;
 				}
-				
+			} else {
+				return false;
 			}
-		
-		
-		
-		
-		
+
+		}
 
 		return true;
+	}
+	
+	public List<Pedido> pedidosCliente (Cliente c){
+		return repoPedido.findByCliente(c);
+	}
+	
+	public List<Pedido> pedidosFecha (){
+		return repoPedido.findByOrderByFechaDesc();
 	}
 
 }

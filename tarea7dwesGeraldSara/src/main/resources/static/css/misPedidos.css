@@ -120,6 +120,11 @@ body {
 	transform: translateY(0);
 }
 
+.lista-plantas {
+    list-style-type: disc; /* Hace que los puntos sean visibles */
+    padding-left: 20px; /* Espacio a la izquierda */
+}
+
 .main-content {
 	color: var(--color-brown-primary);
 	margin-left: var(--sidebar-width);
