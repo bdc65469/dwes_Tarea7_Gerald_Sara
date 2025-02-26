@@ -30,7 +30,8 @@
 		<p class="welcome-message">
 			<span class="usuario" sec:authentication="name">Usuario</span> <a
 				th:href="@{/cliente/vercarrito}" class="fa fa-shopping-cart"
-				style="font-size: 24px;"></a> <span class="carrito">0</span>
+				style="font-size: 24px;"></a> <span class="carrito" th:text="${totalCarrito}">0</span>
+
 		</p>
 
 	</header>

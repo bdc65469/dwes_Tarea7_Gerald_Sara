@@ -32,30 +32,33 @@ public class ControladorPedidos {
 
 	@GetMapping("/mispedidos")
 	public String mostrarmisPedidos(Model model, @AuthenticationPrincipal UserDetails userDetails) {
-	    Cliente c = factory.getServiciosClientes().obtenerClientePorUsuario(userDetails.getUsername());
-	    if (c != null) {
-	        List<Pedido> listaPedidos = factory.getServiciosPedidos().pedidosCliente(c);
+		Map<Planta, Integer> plantasEnCarrito = carritoSesion.getPlantas();
+		int totalItems = plantasEnCarrito.values().stream().mapToInt(Integer::intValue).sum();
+		model.addAttribute("totalCarrito", totalItems);
+		Cliente c = factory.getServiciosClientes().obtenerClientePorUsuario(userDetails.getUsername());
+		if (c != null) {
+			List<Pedido> listaPedidos = factory.getServiciosPedidos().pedidosCliente(c);
 
-	        // Mapa para cada pedido con la cantidad de ejemplares por planta
-	        Map<Long, Map<Planta, Integer>> pedidosResumen = new HashMap<>();
+			// Mapa para cada pedido con la cantidad de ejemplares por planta
+			Map<Long, Map<Planta, Integer>> pedidosResumen = new HashMap<>();
 
-	        for (Pedido pedido : listaPedidos) {
-	            Map<Planta, Integer> resumenPedido = new HashMap<>();
+			for (Pedido pedido : listaPedidos) {
+				Map<Planta, Integer> resumenPedido = new HashMap<>();
 
-	            for (Ejemplar ejemplar : pedido.getEjemplares()) {
-	                Planta planta = ejemplar.getPlanta();
-	                resumenPedido.put(planta, resumenPedido.getOrDefault(planta, 0) + 1);
-	            }
+				for (Ejemplar ejemplar : pedido.getEjemplares()) {
+					Planta planta = ejemplar.getPlanta();
+					resumenPedido.put(planta, resumenPedido.getOrDefault(planta, 0) + 1);
+				}
 
-	            pedidosResumen.put(pedido.getId(), resumenPedido);
-	        }
+				pedidosResumen.put(pedido.getId(), resumenPedido);
+			}
 
-	        model.addAttribute("pedidos", listaPedidos);
-	        model.addAttribute("pedidosResumen", pedidosResumen);
-	    }
-	    return "misPedidos";
+			model.addAttribute("pedidos", listaPedidos);
+			model.addAttribute("pedidosResumen", pedidosResumen);
+		}
+		return "misPedidos";
 	}
-	
+
 	@GetMapping("/realizarpedido")
 	public String realizarPedido() {
 		return "carrito";
@@ -64,6 +67,10 @@ public class ControladorPedidos {
 	// Muestra la lista de los ejemplares disponibles
 	@GetMapping("/stock")
 	public String stock(Model model) {
+
+		Map<Planta, Integer> plantasEnCarrito = carritoSesion.getPlantas();
+		int totalItems = plantasEnCarrito.values().stream().mapToInt(Integer::intValue).sum();
+		model.addAttribute("totalCarrito", totalItems);
 
 		List<Planta> plantas = factory.getServiciosPlanta().listaPlantas();
 		Map<Planta, Integer> ejemplaresPlanta = new TreeMap<Planta, Integer>();

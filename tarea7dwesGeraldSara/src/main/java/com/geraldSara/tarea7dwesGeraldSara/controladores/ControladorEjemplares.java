@@ -71,6 +71,22 @@ public class ControladorEjemplares {
 		listadoPlantas(model);
 		return "crearejemplar";
 	}
+	
+	@PostMapping("/crearejemplarStock")
+	public String crearEjemplarStock(@RequestParam("id") Long id, RedirectAttributes redirectAttributes,
+			@AuthenticationPrincipal UserDetails userDetails) {
+
+		String usuario = userDetails.getUsername();
+		// El usuario está presente en la sesión
+		Persona p = factory.getServiciosPersona().obtenerPersonaPorUsuario(usuario);
+		if (factory.getServiciosEjemplar().crearEjemplarYMensaje(id, p) != null) {
+			redirectAttributes.addAttribute("mensajeC", "Nuevo ejemplar registrado con éxito");
+		} else {
+			redirectAttributes.addAttribute("mensaje", "Error al actualizar los datos de la planta");
+		}
+
+		return "redirect:/gestion/controlStock";
+	}
 
 	// Listado de plantas para elegir
 	@GetMapping("/listaEjemplaresPlanta")

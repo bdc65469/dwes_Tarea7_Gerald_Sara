@@ -229,7 +229,16 @@ public class ControladorClientes {
 	}
 
 	@GetMapping("/menu")
-	public String mostrarMenuClientes() {
+	public String mostrarMenuClientes(Model model) {
+		// Obtener las plantas en el carrito de sesión
+	    Map<Planta, Integer> plantasEnCarrito = carritoSesion.getPlantas();
+
+	    // Calcular la cantidad total
+	    int totalItems = plantasEnCarrito.values().stream().mapToInt(Integer::intValue).sum();
+	    
+	    // Pasar al modelo
+	    model.addAttribute("totalCarrito", totalItems);
+
 		return "menuCliente";
 	}
 

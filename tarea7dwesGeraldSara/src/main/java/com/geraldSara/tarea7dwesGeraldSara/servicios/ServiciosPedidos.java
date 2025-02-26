@@ -64,7 +64,16 @@ public class ServiciosPedidos {
 	}
 	
 	public List<Pedido> pedidosFecha (){
-		return repoPedido.findByOrderByFechaDesc();
+		return repoPedido.findByOrderByIdDesc();
+	}
+	
+	public Pedido pedidoPorId(Long id) {
+		return repoPedido.findPedidoById(id);
+	}
+
+	public Pedido guardarPedido(Pedido pedido) {
+		return repoPedido.save(pedido);
+		
 	}
 
 }

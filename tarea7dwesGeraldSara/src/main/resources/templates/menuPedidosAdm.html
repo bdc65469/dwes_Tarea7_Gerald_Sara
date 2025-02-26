@@ -349,6 +349,7 @@ h1 {
 					<th>Fecha</th>
 					<th>Cliente</th>
                     <th>Resumen Pedido</th>
+                    <th>Ejemplares del pedido</th>
                     <th>Estado</th>
                     <th>Seleccionar</th>
 				</tr>
@@ -364,7 +365,15 @@ h1 {
                                 <span th:text="${entry.value}"></span> ejemplares</li>
 							</ul>
 						</td>
+						<td th:text="${#strings.listJoin(pedido.ejemplares.![nombre], ', ')}"></td>
+
 						<td class="estado" th:text="${pedido.estado}"></td>
+						<td>
+						<form th:action="@{/gestion/detallesPedido}" method="GET">
+							<input type="hidden" name="id" th:value="${pedido.id}">
+							<button type="submit" class="btn-selec">Ver detalles</button>
+						</form>
+					</td>
 						
 					</tr>
 				</tbody>

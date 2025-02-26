@@ -1,74 +1,52 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detalles del Pedido</title>
-    <style>
-        :root {
-            --color-green-primary: #7a862a;
-            --color-green-light: #2b992e;
-            --color-brown-primary: #5D4037;
-            --color-brown-light: #f4e4d2;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--color-brown-light);
-            margin: 20px;
-        }
-        .order-card {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
-            padding: 20px;
-        }
-        h2 {
-            color: var(--color-brown-primary);
-            text-align: center;
-        }
-        .order-info {
-            margin-bottom: 15px;
-            color: var(--color-brown-primary);
-        }
-        .order-items {
-            border-top: 1px solid var(--color-brown-primary);
-            padding-top: 10px;
-            margin-top: 10px;
-        }
-        .order-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--color-brown-primary);
-        }
-        .status-select {
-            width: 100%;
-            padding: 8px;
-            border: 1px solid var(--color-brown-primary);
-            border-radius: 5px;
-            background-color: white;
-            color: var(--color-brown-primary);
-        }
-        .save-button {
-            display: block;
-            width: 100%;
-            background-color: var(--color-green-primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 18px;
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .save-button:hover {
-            background-color: var(--color-green-light);
-        }
-        
-        .btn-back {
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confirmación de Pedido</title>
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+<style>
+:root {
+	--color-green-primary: #7a862a;
+	--color-green-light: #2b992e;
+	--color-brown-primary: #5D4037;
+	--color-brown-light: #f4e4d2;
+}
+
+body {
+	background-color: var(--color-brown-light);
+	font-family: Arial, sans-serif;
+}
+
+.success-message {
+	background-color: var(--color-green-light);
+	color: white;
+	text-align: center;
+	padding: 15px;
+	font-size: 18px;
+	border-radius: 5px;
+	margin-bottom: 20px;
+}
+
+.card {
+	background-color: white;
+	border-left: 5px solid var(--color-brown-primary);
+	box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+
+.section-title {
+	color: var(--color-brown-primary);
+	font-weight: bold;
+	margin-bottom: 15px;
+}
+
+hr {
+	border: 1px solid var(--color-brown-primary);
+}
+
+.btn-back {
 	position: fixed;
 	bottom: 60px;
 	right: 20px;
@@ -92,6 +70,7 @@
 }
 
 .btn-back:hover {
+	border: 2x solid var(--color-brown-primary);
 	background-color: var(--color-brown-light);
 	color: var(--color-brown-primary);
 	font-weight: bold;
@@ -100,36 +79,74 @@
 .btn-back:hover i {
 	color: var(--color-brown-primary);
 }
-    </style>
+
+.error-message {
+	color: #dc3545;
+	font-size: 1.5rem;
+	margin-top: 0.30rem;
+}
+</style>
 </head>
 <body>
-    <div class="order-card">
-        <h2>Detalles del Pedido</h2>
-        <div class="order-info">
-            <p><strong>Cliente:</strong> Juan Pérez</p>
-            <p><strong>Fecha:</strong> 19 de febrero de 2025</p>
-        </div>
-        <div class="order-items">
-            <div class="order-item">
-                <span>Producto 1 - $10</span>
-            </div>
-            <div class="order-item">
-                <span>Producto 2 - $20</span>
-            </div>
-        </div>
-        <div class="order-status">
-            <label for="status"><strong>Estado:</strong></label>
-            <select id="status" class="status-select">
-                <option value="pendiente">Pendiente</option>
-                <option value="enviado">Enviado</option>
-                <option value="entregado">Entregado</option>
-                <option value="recibido">Recibido</option>
-            </select>
-        </div>
-        <button class="save-button">Guardar Pedido</button>
-    </div>
-    <a th:href="@{/gestion/menuPedidos}" class="btn-back"> <i class="fas fa-arrow-left"></i>
-		Volver a menu pedidos
-	</a>
+
+	<div class="container mt-4">
+
+		<!-- Título Detalles de pedido -->
+		<h3 class="section-title">Detalles de pedido</h3>
+		<hr>
+
+		<!-- Tarjeta con detalles -->
+		<div class="card">
+			<h5 class="section-title">Datos del Cliente</h5>
+			<p>
+				<strong>Nombre:</strong> <span th:text="${pedido.cliente.nombre}"></span>
+			</p>
+			<p>
+				<strong>Teléfono:</strong> <span th:text="${pedido.cliente.telefono}"></span>
+			</p>
+			<p>
+				<strong>Dirección:</strong> <span th:text="${pedido.cliente.direccion}"></span>
+			</p>
+			<p>
+				<strong>Email:</strong> <span th:text="${pedido.cliente.email}"></span>
+			</p>
+
+			<h5 class="section-title mt-4">Datos del Pedido</h5>
+			<p>
+				<strong>Número de Pedido:</strong> <span th:text="${pedido.id}"></span>
+			</p>
+			  
+			<ul>
+				<li th:each="entry : ${plantas}">🌱 <span
+					th:text="${entry.key.nombrecomun}">Nombre de la Planta</span> -
+					Cantidad: <span th:text="${entry.value}">Cantidad</span></li>
+			</ul>
+			
+			
+
+			
+			<form th:action="@{/gestion/actualizarEstado}" method="POST">
+				<input type="hidden" name="pedidoId" th:value="${pedido.id}">
+				
+				<label for="estadoPedido"><strong>Estado del Pedido:</strong></label>
+				<select id="estadoPedido" name="estado" class="form-select mt-2" th:disabled="${pedido.estado.name() == 'Cancelado'}">
+					<option value="Pendiente" th:selected="${pedido.estado.name() == 'Pendiente'}">Pendiente</option>
+					<option value="Recibido" th:selected="${pedido.estado.name() == 'Recibido'}">En proceso</option>
+					<option value="Enviado" th:selected="${pedido.estado.name() == 'Enviado'}">Enviado</option>
+					<option value="Cancelado" th:selected="${pedido.estado.name() == 'Cancelado'}">Cancelado</option>
+				</select>
+
+				 <button type="submit" class="btn btn-success mt-3" 
+        th:disabled="${pedido.estado.name() == 'Cancelado'}">Actualizar Estado</button>
+			</form>
+
+		</div>
+		
+		<div th:if="mensaje" class="error-message">
+			<p th:text="${mensaje}"></p>
+		</div>
+		
+		<a th:href="@{/gestion/menuPedidos}" class="btn-back"> <i class="fas fa-arrow-left"></i> Volver a pedidos </a>
+	</div>
 </body>
 </html>
