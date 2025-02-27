@@ -11,6 +11,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.session.HttpSessionEventPublisher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.geraldSara.tarea7dwesGeraldSara.util.CarritoSesion;
 
@@ -43,11 +45,15 @@ public class SecurityConfig {
 	        	    .permitAll()
 	        	)
 	        .logout(logout -> logout
-	            .logoutUrl("/logout")
+	        	.logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
 	            .addLogoutHandler((request, response, authentication) -> carritoSesion.vaciarCarrito()) // Aquí vaciamos el carrito
-	            .logoutSuccessUrl("/login?logout")
+	            .logoutSuccessUrl("/cerrarSesion")
 	            .permitAll()
-	        ) 
+	        )
+	        .sessionManagement(session -> session
+	                .maximumSessions(1) // Solo permite una sesión activa por usuario
+	                .expiredUrl("/login?sessionExpired=true") // Redirige cuando expira la sesión
+	            )
 	        .exceptionHandling(exception -> exception
 	                .accessDeniedPage("/sinpermisos") // Redirigir a la página personalizada de error
 	                );
@@ -69,5 +75,11 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+    
+    //Maneja la session
+    @Bean
+    public HttpSessionEventPublisher httpSessionEventPublisher() {
+        return new HttpSessionEventPublisher();
     }
 }

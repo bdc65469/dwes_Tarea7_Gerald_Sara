@@ -27,32 +27,9 @@ public class ControladorLogin {
 		return "sinpermisos";
 	}
 	
-	/*
-	@GetMapping("/iniciarSesion")
-	public String login(@RequestParam String usuario, @RequestParam String contrasena, Model model, HttpSession session) {
-		boolean isAuthenticated = factory.getServiciosCredenciales().login(usuario, contrasena);
-
-		if (isAuthenticated) {
-			
-			session.setAttribute("usuario", usuario);
-			
-			if (usuario.equals("admin")) {
-				session.setAttribute("perfil", Perfil.ADMIN);				
-				return "redirect:/menu";
-			} else {
-				if (factory.getServiciosCredenciales().obtenerCreden(usuario, contrasena).getCliente()!=null) {
-					session.setAttribute("perfil", Perfil.CLIENTE);
-					return "redirect:/cliente/menu";
-				}else {
-					session.setAttribute("perfil", Perfil.REGISTRADO);
-					return "redirect:/menu";
-				}
-			}
-				
-		} else {
-			model.addAttribute("error", "Usuario o contraseña incorrectos");
-			return "login"; // Vuelve a mostrar la página de login con el error
-		}
-	}*/
+	@GetMapping("/cerrarSesion")
+	public String cerrarSesion() {
+		return "cierreSesion";
+	}
 
 }
