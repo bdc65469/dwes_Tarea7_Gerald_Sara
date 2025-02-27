@@ -1,3 +1,4 @@
+
 function setSelectedOption(option) {
 	var button = document.getElementById('dropdownMenuButton');
 	button.innerHTML = option.innerHTML; // Muestra solo el nombre común en el botón
@@ -25,4 +26,26 @@ document
 			document.getElementById('codigo').value = codigo;
 			document.getElementById('nombreComun').value = nombreComun;
 			document.getElementById('nombreCientifico').value = nombreCientifico;
+		});
+
+		document.addEventListener("DOMContentLoaded", function() {
+			let modificarBtn = document.getElementById("modificar");
+			let dropdownItems = document.querySelectorAll(".dropdown-item");
+			let editarBtn = document.querySelector(".btn-register"); // Botón "EDITAR PLANTA"
+
+			// Deshabilita el botón al inicio
+			modificarBtn.disabled = true;
+			editarBtn.disabled = true;
+
+			dropdownItems.forEach(item => {
+				item.addEventListener("click", function() {
+					// Habilita el botón cuando se selecciona una opción
+					modificarBtn.disabled = false;
+					
+					modificarBtn.addEventListener("click", function(){
+						editarBtn.disabled = false;
+					})
+					
+				});
+			});
 		});

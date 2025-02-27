@@ -87,7 +87,7 @@
 					<td th:text="${mensaje.mensaje}"></td>
 					<td
 						th:text="${#temporals.format(mensaje.fechahora, 'dd/MM/yyyy HH:mm')}"></td>
-					<td th:text="${mensaje.persona.credenciales.usuario}"></td>
+					<td th:text="${mensaje.persona != null ? mensaje.persona.credenciales.usuario : mensaje.cliente.credenciales.usuario}"></td>
 				</tr>
 			</tbody>
 		</table>

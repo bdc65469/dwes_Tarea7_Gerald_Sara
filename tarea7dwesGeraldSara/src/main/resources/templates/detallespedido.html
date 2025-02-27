@@ -131,7 +131,7 @@ hr {
 				<label for="estadoPedido"><strong>Estado del Pedido:</strong></label>
 				<select id="estadoPedido" name="estado" class="form-select mt-2" th:disabled="${pedido.estado.name() == 'Cancelado'}">
 					<option value="Pendiente" th:selected="${pedido.estado.name() == 'Pendiente'}">Pendiente</option>
-					<option value="Recibido" th:selected="${pedido.estado.name() == 'Recibido'}">En proceso</option>
+					<option value="Recibido" th:selected="${pedido.estado.name() == 'Recibido'}">Recibido</option>
 					<option value="Enviado" th:selected="${pedido.estado.name() == 'Enviado'}">Enviado</option>
 					<option value="Cancelado" th:selected="${pedido.estado.name() == 'Cancelado'}">Cancelado</option>
 				</select>

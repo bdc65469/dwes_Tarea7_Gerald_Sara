@@ -257,7 +257,7 @@ body {
 			<div class="mb-3">
 				<label for="nif" class="form-label">NIF/NIE:</label> <input
 					type="nif" name="nif" placeholder="Introduce tu nif/nie"
-					class="form-control" id="nif" required>
+					class="form-control" id="nif" maxlength=9 required>
 				<div th:if="${errorNif}" class="error-message">
 					<p th:text="${errorNif}"></p>
 				</div>

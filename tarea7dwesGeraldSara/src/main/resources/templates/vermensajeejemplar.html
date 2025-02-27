@@ -62,16 +62,16 @@
 		<table class="table table-striped table-hover" id="plantasTable">
 			<thead>
 				<tr>
-					<th>Planta</th>
-					<th>Codigo ejemplar</th>
+					<th>Ejemplar</th>
+					<th>Tipo de Planta</th>
 					<th>Seleccionar</th>
 				</tr>
 			</thead>
 			<tbody>
 
 				<tr th:each="ejemplar : ${ejemplares}">
-					<td class="nombre-comun" th:text="${ejemplar.planta.nombrecomun}"></td>
 					<td th:text="${ejemplar.nombre}"></td>
+					<td class="nombre-comun" th:text="${ejemplar.planta.nombrecomun}"></td>
 
 					<td>
 						<form th:action="@{/ejemplares/mensajesEjemplar}" method="GET"

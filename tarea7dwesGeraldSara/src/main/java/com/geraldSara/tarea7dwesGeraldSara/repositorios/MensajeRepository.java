@@ -40,7 +40,7 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Long> {
 	 * @param fechaFin    Fecha final
 	 * @return Una lista de mensajes
 	 */
-	@Query("SELECT m FROM Mensaje m WHERE m.fechahora BETWEEN :fechaInicio AND :fechaFin")
+	@Query("SELECT m FROM Mensaje m WHERE m.fechahora BETWEEN :fechaInicio AND :fechaFin ORDER BY m.fechahora DESC")
 	List<Mensaje> obtenerMensajesPorRangoDeFecha(@Param("fechaInicio") LocalDateTime fechaInicio,
 			@Param("fechaFin") LocalDateTime fechaFin);
 

@@ -13,6 +13,7 @@ body {
 	padding-top: 120px;
 }
 
+
 .header {
 	background: var(--color-brown-light);
 	padding: 1rem;
@@ -266,6 +267,13 @@ body {
 
 .btn-modify:hover {
 	background-color: var(--color-green-light);
+}
+
+#modificar:disabled, #editarplanta:disabled {
+    background-color: #d3d3d3;
+    color: #808080; 
+    cursor: not-allowed; 
+    opacity: 0.6; 
 }
 
 .dropdown-message {
