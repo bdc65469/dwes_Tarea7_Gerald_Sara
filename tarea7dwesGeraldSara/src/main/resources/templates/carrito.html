@@ -1,113 +1,22 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Carrito de Compras</title>
-    <link
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Carrito de Compras</title>
+<link
 	href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap"
 	rel="stylesheet">
 <link rel="stylesheet"
 	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --color-green-primary: #7a862a;
-            --color-green-light: #2b992e;
-            --color-brown-primary: #5D4037;
-            --color-brown-light: #f4e4d2;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--color-brown-light);
-            margin: 20px;
-        }
-        .cart-container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
-            padding: 20px;
-        }
-        h2 {
-            color: var(--color-brown-primary);
-            text-align: center;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--color-brown-primary);
-        }
-        .cart-item span {
-            font-size: 16px;
-            color: var(--color-brown-primary);
-        }
-        .delete-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .delete-button i {
-            color: red;
-            font-size: 20px;
-        }
-        .pay-button {
-            display: block;
-            width: 100%;
-            background-color: var(--color-green-primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 18px;
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .pay-button:hover {
-            background-color: var(--color-green-light);
-        }
-        
-        .btn-back {
-	position: fixed;
-	bottom: 60px;
-	right: 20px;
-	background-color: var(--color-brown-primary);
-	color: white;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 5px;
-	font-size: 16px;
-	cursor: pointer;
-	display: inline-flex;
-	align-items: center;
-	text-decoration: none;
-	z-index: 1000;
-	color: white;
-}
-
-.btn-back i {
-	margin-right: 8px;
-	color: white;
-}
-
-.btn-back:hover {
-	background-color: var(--color-brown-light);
-	color: var(--color-brown-primary);
-	font-weight: bold;
-}
-
-.btn-back:hover i {
-	color: var(--color-brown-primary);
-}
-    </style>
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/css/carrito.css">
+<script src="https://kit.fontawesome.com/a076d05399.js"
+	crossorigin="anonymous"></script>
 </head>
 <body>
 
 
-<div class="cart-container">
+	<div class="cart-container">
 		<h2>Carrito de Compras</h2>
 		<div id="cart-items">
 			<form th:action="@{/cliente/hacerPedido}" method="POST">
@@ -117,13 +26,10 @@
 						th:text="${entry.key.nombrecomun} + ' - Cantidad: ' + ${entry.value}"
 						style="margin-right: 10px;"></span> <input type="hidden"
 						th:name="'carrito[' + ${stat.index} + '].plantaId'"
-						th:value="${entry.key.id}">
-					
-					<input type="hidden"
+						th:value="${entry.key.id}"> <input type="hidden"
 						th:name="'carrito[' + ${stat.index} + '].cantidad'"
-						th:value="${entry.value}">
-						
-					<a th:href="@{/cliente/eliminarCarrito(plantaId=${entry.key.id})}"
+						th:value="${entry.value}"> <a
+						th:href="@{/cliente/eliminarCarrito(plantaId=${entry.key.id})}"
 						class="delete-button"
 						style="color: red; text-decoration: none; margin-left: 10px;">
 						<i class="fas fa-trash"></i>
@@ -132,19 +38,15 @@
 				</div>
 				<button type="submit" class="pay-button">Realizar pedido</button>
 			</form>
-			 
+
 		</div>
 	</div>
 
- 
-<a th:href="@{/cliente/menu}" class="btn-back"> <i class="fas fa-arrow-left"></i> Volver a pedidos </a>
 
-    
-    <script>
-        function removeItem(button) {
-            button.parentElement.remove();
-        }
-    </script>
-    <script src="/js/cierreSesion.js"></script>
+	<a th:href="@{/cliente/menu}" class="btn-back"> <i
+		class="fas fa-arrow-left"></i> Volver a pedidos
+	</a>
+
+	<script src="/js/cierreSesion.js"></script>
 </body>
 </html>
