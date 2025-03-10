@@ -8,7 +8,6 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import com.geraldSara.tarea7dwesGeraldSara.modelo.Cliente;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Ejemplar;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
 
@@ -30,7 +29,7 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Long> {
 	 * @param idPersona id de la persona a buscar
 	 * @return Lista de mensajes
 	 */
-	@Query("SELECT m FROM Mensaje m JOIN m.persona p WHERE p.id = :idPersona")
+	@Query("SELECT m FROM Mensaje m JOIN m.persona p WHERE p.id = :idPersona ORDER BY m.fechahora DESC")
 	List<Mensaje> obtenerMensajesPorPersona(@Param("idPersona") Long idPersona);
 
 	/**
@@ -53,7 +52,8 @@ public interface MensajeRepository extends JpaRepository<Mensaje, Long> {
 	@Query("SELECT m FROM Mensaje m " + "JOIN m.ejemplar e " + "JOIN e.planta p " + "WHERE p.codigo = :codigo")
 	List<Mensaje> obtenerMensajesPorPlanta(@Param("codigo") String codigo);
 	
-	List<Mensaje> findByCliente (Cliente c);
+	@Query("SELECT m FROM Mensaje m JOIN m.cliente p WHERE p.id = :idCliente ORDER BY m.fechahora DESC")
+	List<Mensaje> findByCliente(@Param("idCliente") Long idCliente);
 
 	List<Mensaje> findByEjemplar(Ejemplar e);
 

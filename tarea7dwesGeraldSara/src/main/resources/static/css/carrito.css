@@ -1,63 +1,79 @@
-        :root {
-            --color-green-primary: #7a862a;
-            --color-green-light: #2b992e;
-            --color-brown-primary: #5D4037;
-            --color-brown-light: #f4e4d2;
-        }
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--color-brown-light);
-            margin: 20px;
-        }
-        .cart-container {
-            max-width: 600px;
-            margin: auto;
-            background: white;
-            border-radius: 10px;
-            box-shadow: 2px 2px 15px rgba(0,0,0,0.2);
-            padding: 20px;
-        }
-        h2 {
-            color: var(--color-brown-primary);
-            text-align: center;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--color-brown-primary);
-        }
-        .cart-item span {
-            font-size: 16px;
-            color: var(--color-brown-primary);
-        }
-        .delete-button {
-            background: none;
-            border: none;
-            cursor: pointer;
-        }
-        .delete-button i {
-            color: red;
-            font-size: 20px;
-        }
-        .pay-button {
-            display: block;
-            width: 100%;
-            background-color: var(--color-green-primary);
-            color: white;
-            border: none;
-            padding: 12px;
-            font-size: 18px;
-            margin-top: 20px;
-            cursor: pointer;
-            border-radius: 5px;
-        }
-        .pay-button:hover {
-            background-color: var(--color-green-light);
-        }
-        
-        .btn-back {
+:root {
+	--color-green-primary: #7a862a;
+	--color-green-light: #2b992e;
+	--color-brown-primary: #5D4037;
+	--color-brown-light: #f4e4d2;
+}
+
+body {
+	font-family: 'Poppins', sans-serif;
+	background-color: var(--color-brown-light);
+	margin: 20px;
+}
+
+.cart-container {
+	max-width: 600px;
+	margin: auto;
+	background: white;
+	border-radius: 10px;
+	box-shadow: 2px 2px 15px rgba(0, 0, 0, 0.2);
+	padding: 20px;
+}
+
+h2 {
+	color: var(--color-brown-primary);
+	text-align: center;
+}
+
+.cart-item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 15px 0;
+	border-bottom: 1px solid var(--color-brown-primary);
+}
+
+.cart-item span {
+	font-size: 16px;
+	color: var(--color-brown-primary);
+}
+
+.delete-button {
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+.delete-button i {
+	color: red;
+	font-size: 20px;
+}
+
+.pay-button {
+	display: block;
+	width: 100%;
+	background-color: var(--color-green-primary);
+	color: white;
+	border: none;
+	padding: 12px;
+	font-size: 18px;
+	margin-top: 20px;
+	cursor: pointer;
+	border-radius: 5px;
+}
+
+.pay-button:hover {
+	background-color: var(--color-green-light);
+}
+
+.pay-button:disabled {
+	background-color: #d3d3d3; /* Gris claro */
+	color: #a1a1a1; /* Gris oscuro */
+	cursor: not-allowed; /* Cambia el cursor a una cruz */
+	border: 1px solid #ccc; /* Borde gris */
+}
+
+.btn-back {
 	position: fixed;
 	bottom: 60px;
 	right: 20px;

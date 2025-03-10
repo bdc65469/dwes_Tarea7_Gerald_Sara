@@ -36,7 +36,7 @@
 					</a>
 
 				</div>
-				<button type="submit" class="pay-button">Realizar pedido</button>
+				<button type="submit" class="pay-button" th:disabled="${#maps.isEmpty(carrito)}">Realizar pedido</button>
 			</form>
 
 		</div>

@@ -54,7 +54,7 @@ public class ServiciosMensaje {
 	}
 	
 	public List<Mensaje> obtenerMensajesPorCliente(Cliente c) {
-		return repoMensaje.findByCliente(c);
+		return repoMensaje.findByCliente(c.getId());
 	}
 
 	public List<Mensaje> obtenerMensajesPorEjemplar(Ejemplar e) {

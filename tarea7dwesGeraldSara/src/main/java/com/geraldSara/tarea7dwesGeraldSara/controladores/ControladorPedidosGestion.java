@@ -1,11 +1,14 @@
 package com.geraldSara.tarea7dwesGeraldSara.controladores;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Ejemplar;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Estado;
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Mensaje;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Pedido;
+import com.geraldSara.tarea7dwesGeraldSara.modelo.Persona;
 import com.geraldSara.tarea7dwesGeraldSara.modelo.Planta;
 import com.geraldSara.tarea7dwesGeraldSara.servicios.ServiciosFactory;
 
@@ -76,10 +81,12 @@ public class ControladorPedidosGestion {
 	
 	 @PostMapping("/actualizarEstado")
 	    public String actualizarEstado(@RequestParam("pedidoId") Long pedidoId,
-	                                   @RequestParam("estado") Estado estado, Model model) {
+	                                   @RequestParam("estado") Estado estado, Model model, @AuthenticationPrincipal UserDetails userDetails) {
 
 	        // Obtener el pedido con el ID
 	        Pedido pedido = factory.getServiciosPedidos().pedidoPorId(pedidoId);
+	        
+	        Persona p = factory.getServiciosPersona().obtenerPersonaPorUsuario(userDetails.getUsername());
 
 	        if (pedido != null) {
 	            // Actualizamos el estado del pedido
@@ -88,6 +95,9 @@ public class ControladorPedidosGestion {
 	            if (estado == Estado.Cancelado) {
 	            	for (Ejemplar e: pedido.getEjemplares()) {
 	            		e.setDisponible(true);
+	            		String mensaje = "Pedido cancelado. El ejemplar vuelve a estar disponible";
+	    				Mensaje m = new Mensaje(LocalDateTime.now(), mensaje,e,p);
+	    				factory.getServiciosMensaje().crearMensaje(m);
 	            	}
 	            }
 
